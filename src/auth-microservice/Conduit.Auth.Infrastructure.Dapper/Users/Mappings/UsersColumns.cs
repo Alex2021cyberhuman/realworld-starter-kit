@@ -8,5 +8,6 @@
         public const string Password = "password";
         public const string Image = "image";
         public const string Biography = "bio";
+        public const string TableName = "user";
     }
 }
