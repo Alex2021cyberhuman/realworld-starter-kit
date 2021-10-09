@@ -5,7 +5,9 @@ using Npgsql;
 
 namespace Conduit.Auth.Infrastructure.Dapper.Connection
 {
-    public class NpgsqlConnectionProvider : IApplicationConnectionProvider, IDisposable
+    public class NpgsqlConnectionProvider
+        : IApplicationConnectionProvider,
+            IDisposable
     {
         private readonly IOptionsMonitor<NpgsqlConnectionOptions>
             _optionsMonitor;
@@ -18,21 +20,29 @@ namespace Conduit.Auth.Infrastructure.Dapper.Connection
             _optionsMonitor = optionsMonitor;
         }
 
+        #region IApplicationConnectionProvider Members
+
         public async Task<NpgsqlConnection> CreateConnectionAsync()
         {
             var options = _optionsMonitor.CurrentValue;
             var connectionsString = options.ConnectionString;
             if (_currentScopeConnection is not null)
-                return _currentScopeConnection; 
+                return _currentScopeConnection;
             _currentScopeConnection = new(connectionsString);
             await _currentScopeConnection.OpenAsync();
             return _currentScopeConnection;
         }
+
+        #endregion
+
+        #region IDisposable Members
 
         public void Dispose()
         {
             _currentScopeConnection?.Dispose();
             GC.SuppressFinalize(this);
         }
+
+        #endregion
     }
 }

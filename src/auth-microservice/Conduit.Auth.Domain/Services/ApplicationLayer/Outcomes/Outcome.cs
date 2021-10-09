@@ -4,8 +4,10 @@
     {
         public static Outcome<T> New<T>(
             OutcomeType type = OutcomeType.Successful,
-            T? result = default) =>
-            new(result, type);
+            T? result = default)
+        {
+            return new(result, type);
+        }
     }
 
     public class Outcome<T>

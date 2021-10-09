@@ -15,10 +15,10 @@ namespace Conduit.Auth.ApplicationLayer.Users.Shared
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
-        
+
         [DataType(DataType.ImageUrl)]
         public string? Image { get; init; }
-        
+
         [DataType(DataType.MultilineText)]
         public string? Biography { get; init; }
     }

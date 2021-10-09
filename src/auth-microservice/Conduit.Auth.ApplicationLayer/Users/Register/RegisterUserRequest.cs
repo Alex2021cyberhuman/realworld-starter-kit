@@ -7,6 +7,4 @@ namespace Conduit.Auth.ApplicationLayer.Users.Register
     public class RegisterUserRequest : IRequest<Outcome<UserResponse>>
     {
     }
-    
-    
 }

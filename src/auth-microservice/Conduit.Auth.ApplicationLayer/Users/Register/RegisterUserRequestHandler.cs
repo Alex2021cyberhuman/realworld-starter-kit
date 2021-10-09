@@ -7,12 +7,18 @@ using MediatR;
 
 namespace Conduit.Auth.ApplicationLayer.Users.Register
 {
-    public class RegisterUserRequestHandler : IRequestHandler<
-        RegisterUserRequest, Outcome<UserResponse>>
+    public class RegisterUserRequestHandler
+        : IRequestHandler<RegisterUserRequest, Outcome<UserResponse>>
     {
-        public Task<Outcome<UserResponse>> Handle(RegisterUserRequest request, CancellationToken cancellationToken)
+        #region IRequestHandler<RegisterUserRequest,Outcome<UserResponse>> Members
+
+        public Task<Outcome<UserResponse>> Handle(
+            RegisterUserRequest request,
+            CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }

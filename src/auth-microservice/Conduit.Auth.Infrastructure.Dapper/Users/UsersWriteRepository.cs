@@ -13,36 +13,43 @@ namespace Conduit.Auth.Infrastructure.Dapper.Users
 {
     public class UsersWriteRepository : IUsersWriteRepository
     {
-        private readonly IApplicationConnectionProvider _provider;
         private readonly Compiler _compiler;
+        private readonly IApplicationConnectionProvider _provider;
 
-        public UsersWriteRepository(IApplicationConnectionProvider provider,
+        public UsersWriteRepository(
+            IApplicationConnectionProvider provider,
             Compiler compiler)
         {
             _provider = provider;
             _compiler = compiler;
         }
 
-        public async Task<User> CreateAsync(User user,
+        #region IUsersWriteRepository Members
+
+        public async Task<User> CreateAsync(
+            User user,
             CancellationToken cancellationToken = default)
         {
             var connection = await _provider.CreateConnectionAsync();
             var insertedUser = await connection.Get(_compiler)
                 .Query(UsersColumns.TableName)
                 .AsInsert(user.AsColumns(), true)
-                .InsertGetIdAsync<User>(user.AsColumns(),
+                .InsertGetIdAsync<User>(
+                    user.AsColumns(),
                     cancellationToken: cancellationToken);
             return insertedUser;
         }
 
-        public async Task<User> UpdateAsync(User user,
+        public async Task<User> UpdateAsync(
+            User user,
             CancellationToken cancellationToken = default)
         {
             var connection = await _provider.CreateConnectionAsync();
             var updatedRows = await connection.Get(_compiler)
                 .Query(UsersColumns.TableName)
                 .Where(UsersColumns.Id, user.Id)
-                .UpdateAsync(user.AsColumns(),
+                .UpdateAsync(
+                    user.AsColumns(),
                     cancellationToken: cancellationToken);
             return updatedRows switch
             {
@@ -53,5 +60,7 @@ namespace Conduit.Auth.Infrastructure.Dapper.Users
                 _ => user
             };
         }
+
+        #endregion
     }
 }

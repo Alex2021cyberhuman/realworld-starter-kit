@@ -6,10 +6,12 @@ namespace Conduit.Auth.Domain.Users.Repositories
 {
     public interface IUsersWriteRepository : IRepository
     {
-        Task<User> CreateAsync(User user,
+        Task<User> CreateAsync(
+            User user,
             CancellationToken cancellationToken = default);
 
-        Task<User> UpdateAsync(User user,
+        Task<User> UpdateAsync(
+            User user,
             CancellationToken cancellationToken = default);
     }
 }

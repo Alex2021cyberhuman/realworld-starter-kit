@@ -7,7 +7,7 @@ namespace Conduit.Auth.Domain.Users
     {
         public User(
             Guid id,
-            string username, 
+            string username,
             string email,
             string password,
             string? image = default,
@@ -23,7 +23,7 @@ namespace Conduit.Auth.Domain.Users
 
         [Key]
         public Guid Id { get; init; }
-        
+
         [Required]
         public string Username { get; init; }
 
@@ -31,14 +31,14 @@ namespace Conduit.Auth.Domain.Users
         [EmailAddress]
         [DataType(DataType.EmailAddress)]
         public string Email { get; init; }
-        
+
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; init; }
-        
+
         [DataType(DataType.ImageUrl)]
         public string? Image { get; init; }
-        
+
         [DataType(DataType.MultilineText)]
         public string? Biography { get; init; }
     }

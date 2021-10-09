@@ -10,10 +10,11 @@ namespace Conduit.Auth.Infrastructure.Dapper.Migrations
 {
     public class MigrationService
     {
-        private readonly IMigrationRunner _runner;
         private readonly NpgsqlConnectionOptions _options;
+        private readonly IMigrationRunner _runner;
 
-        public MigrationService(IOptions<NpgsqlConnectionOptions> options,
+        public MigrationService(
+            IOptions<NpgsqlConnectionOptions> options,
             IMigrationRunner runner)
         {
             _runner = runner;
@@ -25,7 +26,7 @@ namespace Conduit.Auth.Infrastructure.Dapper.Migrations
             await EnsureDatabaseCreatedAsync();
             RunMigrations();
         }
-        
+
         private async Task EnsureDatabaseCreatedAsync()
         {
             var connectionString = (string)_options.ConnectionString.Clone();
@@ -39,7 +40,8 @@ namespace Conduit.Auth.Infrastructure.Dapper.Migrations
             if ((await connection.QueryAsync(databasesQuery, new { database }))
                 .Any())
                 return;
-            await connection.ExecuteAsync(createDatabaseQuery,
+            await connection.ExecuteAsync(
+                createDatabaseQuery,
                 new { database });
         }
 
