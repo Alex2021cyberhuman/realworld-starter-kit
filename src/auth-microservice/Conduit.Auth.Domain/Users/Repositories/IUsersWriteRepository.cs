@@ -1,9 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Conduit.Auth.Domain.Services.DataAccess;
 
-namespace Conduit.Auth.Domain.Users
+namespace Conduit.Auth.Domain.Users.Repositories
 {
-    public interface IUsersRepository
+    public interface IUsersWriteRepository : IRepository
     {
         Task<User> CreateAsync(User user,
             CancellationToken cancellationToken = default);

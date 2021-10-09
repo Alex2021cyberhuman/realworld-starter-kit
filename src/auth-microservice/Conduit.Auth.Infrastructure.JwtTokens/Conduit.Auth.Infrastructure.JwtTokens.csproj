@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Conduit.Auth.Domain\Conduit.Auth.Domain.csproj" />
+      <ProjectReference Include="..\Conduit.Auth.Infrastructure\Conduit.Auth.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.1" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.13.1" />
+    </ItemGroup>
+
+</Project>

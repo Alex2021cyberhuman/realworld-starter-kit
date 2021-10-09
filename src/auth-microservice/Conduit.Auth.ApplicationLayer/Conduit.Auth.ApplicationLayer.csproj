@@ -7,6 +7,11 @@
 
     <ItemGroup>
       <PackageReference Include="FluentValidation" Version="10.3.3" />
+      <PackageReference Include="MediatR" Version="9.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Conduit.Auth.Domain\Conduit.Auth.Domain.csproj" />
     </ItemGroup>
 
 </Project>

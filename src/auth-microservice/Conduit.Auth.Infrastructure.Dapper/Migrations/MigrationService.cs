@@ -8,12 +8,12 @@ using Npgsql;
 
 namespace Conduit.Auth.Infrastructure.Dapper.Migrations
 {
-    public class DataMigrations
+    public class MigrationService
     {
         private readonly IMigrationRunner _runner;
         private readonly NpgsqlConnectionOptions _options;
 
-        public DataMigrations(IOptions<NpgsqlConnectionOptions> options,
+        public MigrationService(IOptions<NpgsqlConnectionOptions> options,
             IMigrationRunner runner)
         {
             _runner = runner;
@@ -25,11 +25,7 @@ namespace Conduit.Auth.Infrastructure.Dapper.Migrations
             await EnsureDatabaseCreatedAsync();
             RunMigrations();
         }
-
-        /// <summary>
-        /// Automatically creates a database for the template if it doesn't already exists.
-        /// You might delete this method to disable auto create functionality.
-        /// </summary>
+        
         private async Task EnsureDatabaseCreatedAsync()
         {
             var connectionString = (string)_options.ConnectionString.Clone();

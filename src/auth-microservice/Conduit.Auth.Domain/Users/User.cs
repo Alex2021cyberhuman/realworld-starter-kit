@@ -36,11 +36,9 @@ namespace Conduit.Auth.Domain.Users
         [DataType(DataType.Password)]
         public string Password { get; init; }
         
-        [Required]
         [DataType(DataType.ImageUrl)]
         public string? Image { get; init; }
         
-        [Required]
         [DataType(DataType.MultilineText)]
         public string? Biography { get; init; }
     }

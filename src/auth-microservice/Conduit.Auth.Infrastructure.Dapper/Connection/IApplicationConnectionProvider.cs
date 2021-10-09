@@ -3,7 +3,7 @@ using Npgsql;
 
 namespace Conduit.Auth.Infrastructure.Dapper.Connection
 {
-    public interface IApplicationConnectionFactory
+    public interface IApplicationConnectionProvider
     {
         Task<NpgsqlConnection> CreateConnectionAsync();
     }

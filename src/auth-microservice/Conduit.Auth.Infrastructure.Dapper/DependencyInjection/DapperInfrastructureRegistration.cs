@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Conduit.Auth.Domain.Users;
+using Conduit.Auth.Domain.Users.Repositories;
 using Conduit.Auth.Infrastructure.Dapper.Connection;
 using Conduit.Auth.Infrastructure.Dapper.Migrations;
 using Conduit.Auth.Infrastructure.Dapper.Users;
@@ -12,12 +13,12 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Conduit.Auth.Infrastructure.Dapper.DependencyInjection
 {
     public class
-        DapperDataAccessInfrastructureRegistration :
-            IDataAccessInfrastructureRegistration<DapperOptions>
+        DapperInfrastructureRegistration :
+            IInfrastructureRegistration<DapperOptions>
     {
         private readonly IConfiguration _configuration;
 
-        public DapperDataAccessInfrastructureRegistration(
+        public DapperInfrastructureRegistration(
             IConfiguration configuration)
         {
             _configuration = configuration;
@@ -28,30 +29,23 @@ namespace Conduit.Auth.Infrastructure.Dapper.DependencyInjection
         {
             var options = GetOptions(action);
             return services
-                .Configure<NpgsqlConnectionOptions>(co => GetOptions(d =>
-                {
-                    d.ConnectionOptions = co;
-                    action(d);
-                }))
-                .AddSingleton<IApplicationConnectionFactory,
-                    NpgsqlConnectionFactory>()
-                .AddSingleton<IUsersRepository, UsersRepository>()
+                .Configure(action)
+                .AddScoped<IApplicationConnectionProvider,
+                    NpgsqlConnectionProvider>()
+                .AddScoped<IUsersWriteRepository, UsersWriteRepository>()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
-                    // Add SQLite support to FluentMigrator
                     .AddPostgres()
-                    // Set the connection string
                     .WithGlobalConnectionString(options.ConnectionOptions
                         .ConnectionString)
-                    // Define the assembly containing the migrations
                     .ScanIn(GetType().Assembly).For.Migrations())
-                .AddTransient<DataMigrations>();
+                .AddTransient<MigrationService>();
         }
 
         public async Task InitializeServicesAsync(AsyncServiceScope scope)
         {
             var migrations =
-                scope.ServiceProvider.GetRequiredService<DataMigrations>();
+                scope.ServiceProvider.GetRequiredService<MigrationService>();
             await migrations.InitializeAsync();
         }
 

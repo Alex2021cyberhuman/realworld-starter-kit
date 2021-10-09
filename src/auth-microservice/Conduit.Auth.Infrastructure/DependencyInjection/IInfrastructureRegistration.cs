@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Conduit.Auth.Infrastructure.DependencyInjection
 {
-    public interface IDataAccessInfrastructureRegistration<out TOptions>
+    public interface IInfrastructureRegistration<out TOptions>
         where TOptions : IOptions
     {
         IServiceCollection AddServices(
