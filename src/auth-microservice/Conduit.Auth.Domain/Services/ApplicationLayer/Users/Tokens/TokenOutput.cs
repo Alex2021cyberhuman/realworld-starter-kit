@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Conduit.Auth.Domain.Services.ApplicationLayer.Users
+namespace Conduit.Auth.Domain.Services.ApplicationLayer.Users.Tokens
 {
     public class TokenOutput
     {

@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Conduit.Auth.ApplicationLayer.Users.Shared;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Outcomes;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Users.Tokens;
@@ -14,19 +13,16 @@ namespace Conduit.Auth.ApplicationLayer.Users.Login
     public class LoginUserRequestHandler
         : IRequestHandler<LoginUserRequest, Outcome<UserResponse>>
     {
-        private readonly IMapper _mapper;
         private readonly IPasswordManager _passwordManager;
         private readonly ITokenProvider _tokenProvider;
         private readonly IUnitOfWork _unitOfWork;
 
         public LoginUserRequestHandler(
             IUnitOfWork unitOfWork,
-            IMapper mapper,
             ITokenProvider tokenProvider,
             IPasswordManager passwordManager)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _tokenProvider = tokenProvider;
             _passwordManager = passwordManager;
         }

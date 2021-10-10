@@ -9,21 +9,32 @@ namespace Conduit.Auth.Infrastructure.Dapper.Migrations
         public override void Up()
         {
             Create.Table(UsersColumns.TableName)
-                .WithColumn("user_id")
+                .WithColumn(UsersColumns.Id)
                 .AsGuid()
+                .NotNullable()
                 .PrimaryKey()
-                .WithColumn("username")
+                .WithColumn(UsersColumns.Username)
                 .AsString(1000)
+                .NotNullable()
                 .Unique()
-                .WithColumn("email")
+                .WithColumn(UsersColumns.Email)
                 .AsString(1000)
+                .NotNullable()
                 .Unique()
-                .WithColumn("password")
+                .WithColumn(UsersColumns.Password)
                 .AsString(1000)
-                .WithColumn("image")
+                .NotNullable()
+                .WithColumn(UsersColumns.Image)
                 .AsString(1000)
-                .WithColumn("bio")
-                .AsString(1000);
+                .Nullable()
+                .WithColumn(UsersColumns.Biography)
+                .AsString(1000)
+                .Nullable();
+            
+            this.Execute.Sql($@"
+ALTER TABLE {UsersColumns.TableName}
+ADD COLUMN {UsersColumns.EmailLower}
+varchar(1000) GENERATED ALWAYS AS LOWER({UsersColumns.Email}) STORED;");
         }
 
         public override void Down()

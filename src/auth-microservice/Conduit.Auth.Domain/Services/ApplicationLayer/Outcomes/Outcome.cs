@@ -1,4 +1,6 @@
-﻿namespace Conduit.Auth.Domain.Services.ApplicationLayer.Outcomes
+﻿using FluentValidation.Results;
+
+namespace Conduit.Auth.Domain.Services.ApplicationLayer.Outcomes
 {
     public static class Outcome
     {
@@ -12,6 +14,12 @@
         public static Outcome<T> New<T>(T? result = default)
         {
             return new(result, OutcomeType.Successful);
+        }
+
+        public static FluentRejectedOutcome<T> Reject<T>(
+            ValidationResult validationResult)
+        {
+            return new(validationResult);
         }
     }
 
