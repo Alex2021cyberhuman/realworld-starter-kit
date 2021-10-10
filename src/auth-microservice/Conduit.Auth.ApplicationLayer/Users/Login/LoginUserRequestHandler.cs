@@ -5,22 +5,21 @@ using Conduit.Auth.ApplicationLayer.Users.Shared;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Outcomes;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Users.Tokens;
 using Conduit.Auth.Domain.Services.DataAccess;
-using Conduit.Auth.Domain.Users;
 using Conduit.Auth.Domain.Users.Passwords;
 using Conduit.Auth.Domain.Users.Repositories;
 using MediatR;
 
-namespace Conduit.Auth.ApplicationLayer.Users.Register
+namespace Conduit.Auth.ApplicationLayer.Users.Login
 {
-    public class RegisterUserRequestHandler
-        : IRequestHandler<RegisterUserRequest, Outcome<UserResponse>>
+    public class LoginUserRequestHandler
+        : IRequestHandler<LoginUserRequest, Outcome<UserResponse>>
     {
         private readonly IMapper _mapper;
-        private readonly ITokenProvider _tokenProvider;
         private readonly IPasswordManager _passwordManager;
+        private readonly ITokenProvider _tokenProvider;
         private readonly IUnitOfWork _unitOfWork;
 
-        public RegisterUserRequestHandler(
+        public LoginUserRequestHandler(
             IUnitOfWork unitOfWork,
             IMapper mapper,
             ITokenProvider tokenProvider,
@@ -32,25 +31,22 @@ namespace Conduit.Auth.ApplicationLayer.Users.Register
             _passwordManager = passwordManager;
         }
 
-        #region IRequestHandler<RegisterUserRequest,Outcome<UserResponse>> Members
+        #region IRequestHandler<LoginUserRequest,Outcome<UserResponse>> Members
 
         public async Task<Outcome<UserResponse>> Handle(
-            RegisterUserRequest request,
+            LoginUserRequest request,
             CancellationToken cancellationToken)
         {
-            var newUser =
-                _mapper.Map<RegisterUserModel, User>(request.RegisterUserModel);
-            newUser = newUser with
-            {
-                Password = _passwordManager.HashPassword(
-                    request.RegisterUserModel.Password,
-                    newUser)
-            };
-            var user = await _unitOfWork.CreateUserAsync(
-                newUser,
+            var user = await _unitOfWork.FindUserByPasswordEmailAsync(
+                request.User.Password,
+                request.User.Email,
+                _passwordManager,
                 cancellationToken);
-            var token =
-                await _tokenProvider.CreateTokenAsync(user, cancellationToken);
+            if (user is null)
+                return Outcome.New<UserResponse>(OutcomeType.Banned);
+            var token = await _tokenProvider.CreateTokenAsync(
+                user,
+                cancellationToken);
             var response = new UserResponse(user, token);
             return Outcome.New(response);
         }
