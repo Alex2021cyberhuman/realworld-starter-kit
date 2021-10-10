@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Npgsql;
 
 namespace Conduit.Auth.Infrastructure.Dapper.Connection
 {
     public interface IApplicationConnectionProvider
     {
-        Task<NpgsqlConnection> CreateConnectionAsync();
+        Task<NpgsqlConnection> CreateConnectionAsync(
+            CancellationToken cancellationToken = default);
     }
 }

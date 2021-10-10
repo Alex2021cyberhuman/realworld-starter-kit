@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Conduit.Auth.ApplicationLayer.Users.Shared
+namespace Conduit.Auth.ApplicationLayer.Users.Register
 {
-    public class UserRequest
+    public class RegisterUserModel
     {
         [Required]
         public string Username { get; set; } = string.Empty;
 
         [Required]
         [EmailAddress]
-        [DataType(DataType.EmailAddress)]
         public string Email { get; set; } = string.Empty;
 
         [Required]

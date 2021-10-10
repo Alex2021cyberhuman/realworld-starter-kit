@@ -30,7 +30,8 @@ namespace Conduit.Auth.Infrastructure.Dapper.Users
             User user,
             CancellationToken cancellationToken = default)
         {
-            var connection = await _provider.CreateConnectionAsync();
+            var connection =
+                await _provider.CreateConnectionAsync(cancellationToken);
             var insertedUser = await connection.Get(_compiler)
                 .Query(UsersColumns.TableName)
                 .AsInsert(user.AsColumns(), true)
@@ -44,7 +45,8 @@ namespace Conduit.Auth.Infrastructure.Dapper.Users
             User user,
             CancellationToken cancellationToken = default)
         {
-            var connection = await _provider.CreateConnectionAsync();
+            var connection =
+                await _provider.CreateConnectionAsync(cancellationToken);
             var updatedRows = await connection.Get(_compiler)
                 .Query(UsersColumns.TableName)
                 .Where(UsersColumns.Id, user.Id)

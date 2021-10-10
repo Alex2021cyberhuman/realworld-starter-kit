@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Conduit.Auth.Domain.Services.DataAccess;
+using Conduit.Auth.Domain.Users.Passwords;
 
 namespace Conduit.Auth.Domain.Users.Repositories
 {
@@ -15,6 +16,24 @@ namespace Conduit.Auth.Domain.Users.Repositories
                 unitOfWork.GetRequiredRepository<IUsersWriteRepository>();
             var user = await repository.CreateAsync(newUser, cancellationToken);
             return user;
+        }
+
+        public static async Task<User?> FindUserByPasswordEmailAsync(
+            this IUnitOfWork unitOfWork,
+            string plainPassword,
+            string email,
+            IPasswordManager passwordManager,
+            CancellationToken cancellationToken = default)
+        {
+            var repository = unitOfWork
+                .GetRequiredRepository<IUsersFindByEmailRepository>();
+            var user = await repository.FindByEmailAsync(
+                email,
+                cancellationToken);
+            return user is null ||
+                   passwordManager.VerifyPassword(plainPassword, user)
+                ? user
+                : null;
         }
     }
 }

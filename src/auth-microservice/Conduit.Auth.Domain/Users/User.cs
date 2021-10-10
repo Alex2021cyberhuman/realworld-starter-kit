@@ -29,7 +29,6 @@ namespace Conduit.Auth.Domain.Users
 
         [Required]
         [EmailAddress]
-        [DataType(DataType.EmailAddress)]
         public string Email { get; init; }
 
         [Required]

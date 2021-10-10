@@ -34,7 +34,8 @@ namespace Conduit.Auth.ApplicationLayer.Users.Register
             RegisterUserRequest request,
             CancellationToken cancellationToken)
         {
-            var newUser = _mapper.Map<UserRequest, User>(request.UserRequest);
+            var newUser =
+                _mapper.Map<RegisterUserModel, User>(request.RegisterUserModel);
             var user = await _unitOfWork.CreateUserAsync(
                 newUser,
                 cancellationToken);

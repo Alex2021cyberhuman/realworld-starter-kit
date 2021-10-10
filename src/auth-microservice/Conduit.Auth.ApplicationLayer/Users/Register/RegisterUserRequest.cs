@@ -7,7 +7,12 @@ namespace Conduit.Auth.ApplicationLayer.Users.Register
 {
     public class RegisterUserRequest : IRequest<Outcome<UserResponse>>
     {
+        public RegisterUserRequest(RegisterUserModel registerUserModel)
+        {
+            RegisterUserModel = registerUserModel;
+        }
+
         [Required]
-        public UserRequest UserRequest { get; set; } = new();
+        public RegisterUserModel RegisterUserModel { get; set; }
     }
 }

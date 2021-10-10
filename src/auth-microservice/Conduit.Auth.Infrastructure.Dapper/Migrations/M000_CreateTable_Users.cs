@@ -3,8 +3,8 @@ using FluentMigrator;
 
 namespace Conduit.Auth.Infrastructure.Dapper.Migrations
 {
-    [Migration(1633366056)]
-    public class InitialMigration : Migration
+    [Migration(0)]
+    public class M000_CreateTable_Users : Migration
     {
         public override void Up()
         {
