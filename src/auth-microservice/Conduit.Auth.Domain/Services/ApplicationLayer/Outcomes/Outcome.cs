@@ -8,11 +8,16 @@
         {
             return new(result, type);
         }
+
+        public static Outcome<T> New<T>(T? result = default)
+        {
+            return new(result, OutcomeType.Successful);
+        }
     }
 
     public class Outcome<T>
     {
-        public Outcome(T? result, OutcomeType type)
+        internal Outcome(T? result, OutcomeType type)
         {
             Result = result;
             Type = type;

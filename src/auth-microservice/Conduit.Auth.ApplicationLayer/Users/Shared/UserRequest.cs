@@ -2,7 +2,7 @@
 
 namespace Conduit.Auth.ApplicationLayer.Users.Shared
 {
-    public class UserModel
+    public class UserRequest
     {
         [Required]
         public string Username { get; set; } = string.Empty;

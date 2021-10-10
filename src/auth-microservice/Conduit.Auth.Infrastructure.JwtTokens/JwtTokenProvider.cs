@@ -1,60 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Reflection;
-using System.Security.Claims;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Users;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Users.Tokens;
 using Conduit.Auth.Domain.Users;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Conduit.Auth.Infrastructure.JwtTokens
 {
-    public class JwtTokenProviderOptions
-    {
-        public string SecurityKey { get; set; } = new('0', 32);
-
-        public string SecurityKeyAlgorithm { get; set; } =
-            SecurityAlgorithms.HmacSha256;
-
-        public string Issuer { get; set; } =
-            Assembly.GetEntryAssembly()?.GetName().Name!;
-
-        public TimeSpan AccessTokenExpires { get; set; } =
-            TimeSpan.FromHours(1);
-    }
-
-    public static class JwtTokenExtensions
-    {
-        public static SecurityKey GetSecurityKey(
-            this JwtTokenProviderOptions opt)
-        {
-            return new SymmetricSecurityKey(
-                Encoding.ASCII.GetBytes(opt.SecurityKey));
-        }
-
-
-        public static IEnumerable<Claim> GetCommonClaims(this User user)
-        {
-            yield return new(ClaimTypes.NameIdentifier, user.Id.ToString());
-            yield return new(ClaimTypes.Name, user.Username);
-            yield return new(
-                ClaimTypes.Email,
-                user.Email,
-                ClaimValueTypes.Email);
-        }
-
-        public static SigningCredentials GetSecurityCredentials(
-            this JwtTokenProviderOptions opt)
-        {
-            return new(opt.GetSecurityKey(), opt.SecurityKeyAlgorithm);
-        }
-    }
-
     public class JwtTokenProvider : ITokenProvider
     {
         private readonly JwtSecurityTokenHandler _handler;
@@ -70,7 +25,9 @@ namespace Conduit.Auth.Infrastructure.JwtTokens
 
         #region ITokenProvider Members
 
-        public Task<TokenOutput> CreateTokenAsync(User user)
+        public Task<TokenOutput> CreateTokenAsync(
+            User user,
+            CancellationToken cancellationToken = default)
         {
             var now = DateTime.UtcNow;
             var jti = Guid.NewGuid().ToString();
