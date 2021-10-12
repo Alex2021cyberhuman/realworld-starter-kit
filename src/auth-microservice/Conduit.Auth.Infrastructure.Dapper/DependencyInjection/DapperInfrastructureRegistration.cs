@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using Conduit.Auth.Domain.Services.DataAccess;
 using Conduit.Auth.Domain.Users.Repositories;
 using Conduit.Auth.Infrastructure.Dapper.Connection;
 using Conduit.Auth.Infrastructure.Dapper.Migrations;
@@ -14,13 +17,6 @@ namespace Conduit.Auth.Infrastructure.Dapper.DependencyInjection
     public class DapperInfrastructureRegistration
         : IInfrastructureRegistration<DapperOptions>
     {
-        private readonly IConfiguration _configuration;
-
-        public DapperInfrastructureRegistration(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         #region IInfrastructureRegistration<DapperOptions> Members
 
         public IServiceCollection AddServices(
@@ -28,10 +24,11 @@ namespace Conduit.Auth.Infrastructure.Dapper.DependencyInjection
             Action<DapperOptions> action)
         {
             var options = GetOptions(action);
-            return services.Configure(action)
+            services.Configure(action)
                 .AddScoped<IApplicationConnectionProvider,
                     NpgsqlConnectionProvider>()
                 .AddScoped<IUsersWriteRepository, UsersWriteRepository>()
+                .AddScoped<IUsersFindByEmailRepository, UsersFindByEmailRepository>()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(
                     rb => rb.AddPostgres()
@@ -40,6 +37,11 @@ namespace Conduit.Auth.Infrastructure.Dapper.DependencyInjection
                         .ScanIn(GetType().Assembly)
                         .For.Migrations())
                 .AddTransient<MigrationService>();
+            if (!CheckRepositoriesFromDomain())
+                throw new InvalidOperationException(
+                    "Not all repositories have been registered");
+
+            return services;
         }
 
         public async Task InitializeServicesAsync(AsyncServiceScope scope)
@@ -56,6 +58,24 @@ namespace Conduit.Auth.Infrastructure.Dapper.DependencyInjection
             var options = new DapperOptions();
             action(options);
             return options;
+        }
+
+        private static bool CheckRepositoriesFromDomain()
+        {
+            var repositoryInterfacesFromDomain = typeof(IRepository)
+                .Assembly
+                .GetTypes()
+                .Where(type => type.IsInterface)
+                .Where(type => type.IsAssignableFrom(typeof(IRepository)))
+                .ToHashSet();
+            var repositoryClassesFromThisAssembly = Assembly
+                .GetExecutingAssembly()
+                .GetTypes()
+                .Where(type => type.IsClass)
+                .Where(type => type.IsAssignableTo(typeof(IRepository)))
+                .Where(repositoryInterfacesFromDomain.Contains);
+            return repositoryInterfacesFromDomain.Count ==
+                   repositoryClassesFromThisAssembly.Count();
         }
     }
 }

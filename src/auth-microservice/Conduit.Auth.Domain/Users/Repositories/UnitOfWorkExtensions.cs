@@ -7,11 +7,36 @@ namespace Conduit.Auth.Domain.Users.Repositories
 {
     public static class UnitOfWorkExtensions
     {
-        public static async Task<User> CreateUserAsync(
+        public static async Task<User> HashPasswordAndUpdateUserAsync(
             this IUnitOfWork unitOfWork,
             User newUser,
+            IPasswordManager passwordManager,
             CancellationToken cancellationToken = default)
         {
+            newUser = newUser.WithHashedPassword(passwordManager);
+            var repository =
+                unitOfWork.GetRequiredRepository<IUsersWriteRepository>();
+            var user = await repository.UpdateAsync(newUser, cancellationToken);
+            return user;
+        }
+
+        public static User WithHashedPassword(this User user, IPasswordManager passwordManager)
+        {
+            return user with
+            {
+                Password = passwordManager.HashPassword(
+                    user.Password,
+                    user)
+            };
+        }
+
+        public static async Task<User> HashPasswordAndCreateUserAsync(
+            this IUnitOfWork unitOfWork,
+            User newUser,
+            IPasswordManager passwordManager,
+            CancellationToken cancellationToken = default)
+        {
+            newUser = newUser.WithHashedPassword(passwordManager);
             var repository =
                 unitOfWork.GetRequiredRepository<IUsersWriteRepository>();
             var user = await repository.CreateAsync(newUser, cancellationToken);
@@ -34,6 +59,32 @@ namespace Conduit.Auth.Domain.Users.Repositories
                    passwordManager.VerifyPassword(plainPassword, user)
                 ? user
                 : null;
+        }
+
+        public static async Task<User?> FindUserByEmailAsync(
+            this IUnitOfWork unitOfWork,
+            string email,
+            CancellationToken cancellationToken = default)
+        {
+            var repository = unitOfWork
+                .GetRequiredRepository<IUsersFindByEmailRepository>();
+            var user = await repository.FindByEmailAsync(
+                email,
+                cancellationToken);
+            return user;
+        }
+        
+        public static async Task<User?> FindUserByUsernameAsync(
+            this IUnitOfWork unitOfWork,
+            string username,
+            CancellationToken cancellationToken = default)
+        {
+            var repository = unitOfWork
+                .GetRequiredRepository<IUsersFindByUsernameRepository>();
+            var user = await repository.FindByUsernameAsync(
+                username,
+                cancellationToken);
+            return user;
         }
     }
 }

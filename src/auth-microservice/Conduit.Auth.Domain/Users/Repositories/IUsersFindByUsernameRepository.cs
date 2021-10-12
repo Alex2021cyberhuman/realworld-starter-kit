@@ -4,10 +4,10 @@ using Conduit.Auth.Domain.Services.DataAccess;
 
 namespace Conduit.Auth.Domain.Users.Repositories
 {
-    public interface IUsersFindByEmailRepository : IRepository
+    public interface IUsersFindByUsernameRepository : IRepository
     {
-        Task<User?> FindByEmailAsync(
-            string email,
+        Task<User?> FindByUsernameAsync(
+            string username,
             CancellationToken cancellationToken = default);
     }
 }

@@ -6,8 +6,8 @@ using FluentValidation.Validators;
 
 namespace Conduit.Auth.ApplicationLayer.Users.Shared
 {
-    public class ImagePropertyValidator
-        : AsyncPropertyValidator<UserModel, string?>
+    public class ImagePropertyValidator<T>
+        : AsyncPropertyValidator<T, string?>
     {
         private readonly IImageChecker _imageChecker;
 
@@ -16,10 +16,10 @@ namespace Conduit.Auth.ApplicationLayer.Users.Shared
             _imageChecker = imageChecker;
         }
 
-        public override string Name => nameof(ImagePropertyValidator);
+        public override string Name => nameof(ImagePropertyValidator<T>);
 
         public override async Task<bool> IsValidAsync(
-            ValidationContext<UserModel> context,
+            ValidationContext<T> context,
             string? value,
             CancellationToken cancellation)
         {

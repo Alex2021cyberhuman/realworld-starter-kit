@@ -31,7 +31,7 @@ namespace Conduit.Auth.ApplicationLayer.Users.Shared
             RuleFor(x => x.Email).NotEmpty().EmailAddress().MaximumLength(100);
             RuleFor(x => x.Biography).MaximumLength(500);
             var imagePropertyValidator =
-                new ImagePropertyValidator(imageChecker);
+                new ImagePropertyValidator<UserModel>(imageChecker);
             RuleFor(x => x.Image)
                 .MaximumLength(1000)
                 .SetAsyncValidator(imagePropertyValidator);
