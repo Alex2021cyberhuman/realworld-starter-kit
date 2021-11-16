@@ -2,6 +2,7 @@
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
+using Conduit.Auth.Infrastructure.Dapper.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Npgsql;
 
@@ -11,13 +12,12 @@ namespace Conduit.Auth.Infrastructure.Dapper.Connection
         : IApplicationConnectionProvider,
             IAsyncDisposable
     {
-        private readonly IOptionsMonitor<NpgsqlConnectionOptions>
-            _optionsMonitor;
+        private readonly IOptionsMonitor<DapperOptions> _optionsMonitor;
 
         private NpgsqlConnection? _currentScopeConnection;
 
         public NpgsqlConnectionProvider(
-            IOptionsMonitor<NpgsqlConnectionOptions> optionsMonitor)
+            IOptionsMonitor<DapperOptions> optionsMonitor)
         {
             _optionsMonitor = optionsMonitor;
         }
@@ -28,7 +28,7 @@ namespace Conduit.Auth.Infrastructure.Dapper.Connection
             CancellationToken cancellationToken = default)
         {
             var options = _optionsMonitor.CurrentValue;
-            var connectionsString = options.ConnectionString;
+            var connectionsString = options.ConnectionOptions.ConnectionString;
             _currentScopeConnection = await GetConnectionAsync(
                 _currentScopeConnection,
                 connectionsString,

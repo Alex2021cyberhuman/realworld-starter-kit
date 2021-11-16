@@ -14,14 +14,17 @@ namespace Conduit.Auth.Infrastructure.Dapper.Users
     public class UsersWriteRepository : IUsersWriteRepository
     {
         private readonly Compiler _compiler;
+        private readonly IUsersFindByIdRepository _findById;
         private readonly IApplicationConnectionProvider _provider;
 
         public UsersWriteRepository(
             IApplicationConnectionProvider provider,
-            Compiler compiler)
+            Compiler compiler,
+            IUsersFindByIdRepository findById)
         {
             _provider = provider;
             _compiler = compiler;
+            _findById = findById;
         }
 
         #region IUsersWriteRepository Members
@@ -32,13 +35,13 @@ namespace Conduit.Auth.Infrastructure.Dapper.Users
         {
             var connection =
                 await _provider.CreateConnectionAsync(cancellationToken);
-            var insertedUser = await connection.Get(_compiler)
+            await connection.Get(_compiler)
                 .Query(UsersColumns.TableName)
-                .AsInsert(user.AsColumns(), true)
-                .InsertGetIdAsync<User>(
+                .InsertAsync(
                     user.AsColumns(),
                     cancellationToken: cancellationToken);
-            return insertedUser;
+
+            return (await _findById.FindByIdAsync(user.Id, cancellationToken))!;
         }
 
         public async Task<User> UpdateAsync(
@@ -59,7 +62,9 @@ namespace Conduit.Auth.Infrastructure.Dapper.Users
                     "No one row has been updated."),
                 > 1 => throw new InvalidOperationException(
                     "Several rows have been updated."),
-                _ => user
+                _ => (await _findById.FindByIdAsync(
+                    user.Id,
+                    cancellationToken))!
             };
         }
 

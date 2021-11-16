@@ -20,16 +20,6 @@ namespace Conduit.Auth.Domain.Users.Repositories
             return user;
         }
 
-        public static User WithHashedPassword(this User user, IPasswordManager passwordManager)
-        {
-            return user with
-            {
-                Password = passwordManager.HashPassword(
-                    user.Password,
-                    user)
-            };
-        }
-
         public static async Task<User> HashPasswordAndCreateUserAsync(
             this IUnitOfWork unitOfWork,
             User newUser,
@@ -41,6 +31,16 @@ namespace Conduit.Auth.Domain.Users.Repositories
                 unitOfWork.GetRequiredRepository<IUsersWriteRepository>();
             var user = await repository.CreateAsync(newUser, cancellationToken);
             return user;
+        }
+
+        public static User WithHashedPassword(
+            this User user,
+            IPasswordManager passwordManager)
+        {
+            return user with
+            {
+                Password = passwordManager.HashPassword(user.Password, user)
+            };
         }
 
         public static async Task<User?> FindUserByPasswordEmailAsync(
@@ -73,7 +73,7 @@ namespace Conduit.Auth.Domain.Users.Repositories
                 cancellationToken);
             return user;
         }
-        
+
         public static async Task<User?> FindUserByUsernameAsync(
             this IUnitOfWork unitOfWork,
             string username,

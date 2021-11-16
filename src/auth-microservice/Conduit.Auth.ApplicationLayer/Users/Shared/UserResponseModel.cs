@@ -11,7 +11,7 @@ namespace Conduit.Auth.ApplicationLayer.Users.Shared
             Username = user.Username;
             Email = user.Email;
             Image = user.Image;
-            Biography = user.Biography;
+            Bio = user.Biography;
             Token = token.AccessToken;
         }
 
@@ -30,6 +30,6 @@ namespace Conduit.Auth.ApplicationLayer.Users.Shared
         public string? Image { get; init; }
 
         [DataType(DataType.MultilineText)]
-        public string? Biography { get; init; }
+        public string? Bio { get; init; }
     }
 }

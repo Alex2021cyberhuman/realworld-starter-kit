@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -7,51 +8,54 @@ using Conduit.Auth.Domain.Users.Repositories;
 using Conduit.Auth.Infrastructure.Dapper.Connection;
 using Conduit.Auth.Infrastructure.Dapper.Migrations;
 using Conduit.Auth.Infrastructure.Dapper.Users;
-using Conduit.Auth.Infrastructure.DependencyInjection;
+using Conduit.Auth.Infrastructure.Dapper.Users.Mappings;
+using Dapper.FluentMap;
 using FluentMigrator.Runner;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SqlKata.Compilers;
 
 namespace Conduit.Auth.Infrastructure.Dapper.DependencyInjection
 {
-    public class DapperInfrastructureRegistration
-        : IInfrastructureRegistration<DapperOptions>
+    public static class DapperInfrastructureRegistration
     {
-        #region IInfrastructureRegistration<DapperOptions> Members
-
-        public IServiceCollection AddServices(
-            IServiceCollection services,
+        public static IServiceCollection AddDapper(
+            this IServiceCollection services,
             Action<DapperOptions> action)
         {
+            FluentMapper.Initialize(conf => conf.AddMap(new UsersTableMap()));
             var options = GetOptions(action);
             services.Configure(action)
+                .AddSingleton<Compiler, PostgresCompiler>()
                 .AddScoped<IApplicationConnectionProvider,
                     NpgsqlConnectionProvider>()
+                .AddScoped<IUnitOfWork, ServiceProviderUnitOfWork>()
+                .AddScoped<IUsersFindByUsernameRepository,
+                    UsersFindByUsernameRepository>()
+                .AddScoped<IUsersFindByIdRepository, UsersFindByIdRepository>()
                 .AddScoped<IUsersWriteRepository, UsersWriteRepository>()
-                .AddScoped<IUsersFindByEmailRepository, UsersFindByEmailRepository>()
+                .AddScoped<IUsersFindByEmailRepository,
+                    UsersFindByEmailRepository>()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(
                     rb => rb.AddPostgres()
                         .WithGlobalConnectionString(
                             options.ConnectionOptions.ConnectionString)
-                        .ScanIn(GetType().Assembly)
+                        .ScanIn(Assembly.GetExecutingAssembly())
                         .For.Migrations())
                 .AddTransient<MigrationService>();
-            if (!CheckRepositoriesFromDomain())
+            if (!CheckRepositoriesFromDomain(services))
                 throw new InvalidOperationException(
                     "Not all repositories have been registered");
 
             return services;
         }
 
-        public async Task InitializeServicesAsync(AsyncServiceScope scope)
+        public static async Task InitializeDapperAsync(this IServiceScope scope)
         {
             var migrations = scope.ServiceProvider
                 .GetRequiredService<MigrationService>();
             await migrations.InitializeAsync();
         }
-
-        #endregion
 
         private static DapperOptions GetOptions(Action<DapperOptions> action)
         {
@@ -60,22 +64,28 @@ namespace Conduit.Auth.Infrastructure.Dapper.DependencyInjection
             return options;
         }
 
-        private static bool CheckRepositoriesFromDomain()
+        private static bool CheckRepositoriesFromDomain(
+            IEnumerable<ServiceDescriptor> descriptors)
         {
-            var repositoryInterfacesFromDomain = typeof(IRepository)
-                .Assembly
+            var repositoryInterfacesFromDomain = typeof(IRepository).Assembly
                 .GetTypes()
-                .Where(type => type.IsInterface)
-                .Where(type => type.IsAssignableFrom(typeof(IRepository)))
-                .ToHashSet();
-            var repositoryClassesFromThisAssembly = Assembly
-                .GetExecutingAssembly()
-                .GetTypes()
-                .Where(type => type.IsClass)
+                .Where(type => type.IsInterface && type != typeof(IRepository))
                 .Where(type => type.IsAssignableTo(typeof(IRepository)))
-                .Where(repositoryInterfacesFromDomain.Contains);
+                .ToHashSet();
+            var repositoryClassesFromThisAssembly = descriptors
+                .Select(descriptor => descriptor.ImplementationType)
+                .Where(
+                    type => type is not null &&
+                            type.IsAssignableTo(typeof(IRepository)) &&
+                            type.IsClass)
+                .Where(
+                    repositoryClass => repositoryInterfacesFromDomain.Any(
+                        repositoryInterface =>
+                            repositoryInterface.IsAssignableFrom(
+                                repositoryClass)))
+                .ToHashSet();
             return repositoryInterfacesFromDomain.Count ==
-                   repositoryClassesFromThisAssembly.Count();
+                   repositoryClassesFromThisAssembly.Count;
         }
     }
 }

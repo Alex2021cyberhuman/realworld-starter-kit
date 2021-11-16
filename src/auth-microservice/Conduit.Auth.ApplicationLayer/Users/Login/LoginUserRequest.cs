@@ -4,9 +4,7 @@ using MediatR;
 
 namespace Conduit.Auth.ApplicationLayer.Users.Login
 {
-    public class LoginUserRequest
-        : IRequest<Outcome<UserResponseModel>>,
-            IRequest<Outcome<UserResponse>>
+    public class LoginUserRequest : IRequest<Outcome<UserResponse>>
     {
         public LoginUserRequest(LoginUserModel user)
         {

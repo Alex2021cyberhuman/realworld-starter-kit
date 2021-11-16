@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Conduit.Auth.Domain.Users;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Conduit.Auth.Infrastructure.JwtTokens
@@ -18,10 +19,10 @@ namespace Conduit.Auth.Infrastructure.JwtTokens
 
         public static IEnumerable<Claim> GetCommonClaims(this User user)
         {
-            yield return new(ClaimTypes.NameIdentifier, user.Id.ToString());
-            yield return new(ClaimTypes.Name, user.Username);
+            yield return new(JwtRegisteredClaimNames.Sub, user.Id.ToString());
+            yield return new(JwtRegisteredClaimNames.Name, user.Username);
             yield return new(
-                ClaimTypes.Email,
+                JwtRegisteredClaimNames.Email,
                 user.Email,
                 ClaimValueTypes.Email);
         }

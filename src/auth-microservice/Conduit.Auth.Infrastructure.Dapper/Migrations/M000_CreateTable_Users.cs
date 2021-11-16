@@ -8,38 +8,43 @@ namespace Conduit.Auth.Infrastructure.Dapper.Migrations
     {
         public override void Up()
         {
-            Create.Table(UsersColumns.TableName)
-                .WithColumn(UsersColumns.Id)
+            Create.Table($"\"{UsersColumns.TableName}\"")
+                .WithColumn($"\"{UsersColumns.Id}\"")
                 .AsGuid()
                 .NotNullable()
                 .PrimaryKey()
-                .WithColumn(UsersColumns.Username)
+                .WithColumn($"\"{UsersColumns.Username}\"")
                 .AsString(1000)
                 .NotNullable()
                 .Unique()
-                .WithColumn(UsersColumns.Email)
+                .WithColumn($"\"{UsersColumns.Email}\"")
                 .AsString(1000)
                 .NotNullable()
                 .Unique()
-                .WithColumn(UsersColumns.Password)
+                .WithColumn($"\"{UsersColumns.Password}\"")
                 .AsString(1000)
                 .NotNullable()
-                .WithColumn(UsersColumns.Image)
+                .WithColumn($"\"{UsersColumns.Image}\"")
                 .AsString(1000)
                 .Nullable()
-                .WithColumn(UsersColumns.Biography)
+                .WithColumn($"\"{UsersColumns.Biography}\"")
                 .AsString(1000)
                 .Nullable();
             
             this.Execute.Sql($@"
-ALTER TABLE {UsersColumns.TableName}
-ADD COLUMN {UsersColumns.EmailLower}
-varchar(1000) GENERATED ALWAYS AS LOWER({UsersColumns.Email}) STORED;");
+ALTER TABLE ""{UsersColumns.TableName}""
+ADD COLUMN ""{UsersColumns.EmailLower}""
+varchar(1000) GENERATED ALWAYS AS 
+(lower(""{UsersColumns.Email}"")) STORED;");
+            
+            this.Execute.Sql($@"
+CREATE UNIQUE INDEX ON ""{UsersColumns.TableName}"" 
+(""{UsersColumns.EmailLower}"");");
         }
 
         public override void Down()
         {
-            Delete.Table(UsersColumns.TableName);
+            Delete.Table($"\"{UsersColumns.TableName}\"");
         }
     }
 }

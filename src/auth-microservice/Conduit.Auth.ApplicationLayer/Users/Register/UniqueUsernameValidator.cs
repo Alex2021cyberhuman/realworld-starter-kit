@@ -22,7 +22,7 @@ namespace Conduit.Auth.ApplicationLayer.Users.Register
             CancellationToken cancellation)
         {
             if (string.IsNullOrEmpty(value))
-                return false;
+                return true;
             var user = await _unitOfWork.FindUserByUsernameAsync(value, cancellation);
             return user is null;
         }

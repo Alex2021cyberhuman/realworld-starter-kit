@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Conduit.Auth.ApplicationLayer.Users.Shared;
+using Conduit.Auth.Domain.Services;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Outcomes;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Users.Tokens;
 using Conduit.Auth.Domain.Services.DataAccess;
@@ -21,19 +22,22 @@ namespace Conduit.Auth.ApplicationLayer.Users.Register
         private readonly ITokenProvider _tokenProvider;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IValidator<RegisterUserRequest> _validator;
+        private readonly IIdManager _idManager;
 
         public RegisterUserRequestHandler(
             IUnitOfWork unitOfWork,
             IMapper mapper,
             ITokenProvider tokenProvider,
             IPasswordManager passwordManager,
-            IValidator<RegisterUserRequest> validator)
+            IValidator<RegisterUserRequest> validator,
+            IIdManager idManager)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _tokenProvider = tokenProvider;
             _passwordManager = passwordManager;
             _validator = validator;
+            _idManager = idManager;
         }
 
         #region IRequestHandler<RegisterUserRequest,Outcome<UserResponse>> Members
@@ -59,7 +63,10 @@ namespace Conduit.Auth.ApplicationLayer.Users.Register
             RegisterUserRequest request,
             CancellationToken cancellationToken)
         {
-            var newUser = _mapper.Map<RegisterUserModel, User>(request.User);
+            var newUser = _mapper.Map<RegisterUserModel, User>(request.User) with
+            {
+                Id = _idManager.GenerateId()
+            };
             var user = await _unitOfWork.HashPasswordAndCreateUserAsync(
                 newUser,
                 _passwordManager,

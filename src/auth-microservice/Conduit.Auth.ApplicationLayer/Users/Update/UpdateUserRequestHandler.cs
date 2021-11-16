@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Conduit.Auth.ApplicationLayer.Users.Shared;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Outcomes;
+using Conduit.Auth.Domain.Services.ApplicationLayer.Users;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Users.Tokens;
 using Conduit.Auth.Domain.Services.DataAccess;
 using Conduit.Auth.Domain.Users;
@@ -13,8 +14,10 @@ using MediatR;
 
 namespace Conduit.Auth.ApplicationLayer.Users.Update
 {
-    public class UpdateUserRequestHandler : IRequestHandler<UpdateUserRequest, Outcome<UserResponse>>
+    public class UpdateUserRequestHandler
+        : IRequestHandler<UpdateUserRequest, Outcome<UserResponse>>
     {
+        private readonly ICurrentUserProvider _currentUserProvider;
         private readonly IMapper _mapper;
         private readonly IPasswordManager _passwordManager;
         private readonly ITokenProvider _tokenProvider;
@@ -26,14 +29,18 @@ namespace Conduit.Auth.ApplicationLayer.Users.Update
             IMapper mapper,
             ITokenProvider tokenProvider,
             IPasswordManager passwordManager,
-            IValidator<UpdateUserRequest> validator)
+            IValidator<UpdateUserRequest> validator,
+            ICurrentUserProvider currentUserProvider)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _tokenProvider = tokenProvider;
             _passwordManager = passwordManager;
             _validator = validator;
+            _currentUserProvider = currentUserProvider;
         }
+
+        #region IRequestHandler<UpdateUserRequest,Outcome<UserResponse>> Members
 
         public async Task<Outcome<UserResponse>> Handle(
             UpdateUserRequest request,
@@ -41,20 +48,35 @@ namespace Conduit.Auth.ApplicationLayer.Users.Update
         {
             var validationResult =
                 await _validator.ValidateAsync(request, cancellationToken);
+            var user =
+                await _currentUserProvider.GetCurrentUserAsync(
+                    cancellationToken);
+            if (user is null)
+                return Outcome.New<UserResponse>(OutcomeType.Banned);
             if (!validationResult.IsValid)
                 return Outcome.Reject<UserResponse>(validationResult);
-            var user = await UpdateUserAsync(request, cancellationToken);
+            user = await UpdateUserAsync(request, user, cancellationToken);
             var token =
                 await _tokenProvider.CreateTokenAsync(user, cancellationToken);
             var response = new UserResponse(user, token);
             return Outcome.New(response);
         }
-        
+
+        #endregion
+
         private async Task<User> UpdateUserAsync(
             UpdateUserRequest request,
+            User source,
             CancellationToken cancellationToken)
         {
-            var newUser = _mapper.Map<UpdateUserModel, User>(request.User);
+            var model = request.User;
+            var newUser = source with
+            {
+                Email = model.Email ?? source.Email,
+                Password = model.Password ?? source.Password,
+                Biography = model.Biography ?? source.Biography,
+                Image = model.Image ?? source.Image,
+            };
             var user = await _unitOfWork.HashPasswordAndUpdateUserAsync(
                 newUser,
                 _passwordManager,
