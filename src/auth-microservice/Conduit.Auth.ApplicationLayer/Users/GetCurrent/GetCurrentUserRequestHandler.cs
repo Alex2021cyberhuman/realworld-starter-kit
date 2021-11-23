@@ -36,7 +36,7 @@ namespace Conduit.Auth.ApplicationLayer.Users.GetCurrent
             var token =
                 await _tokenProvider.CreateTokenAsync(user, cancellationToken);
             var response = new UserResponse(user, token);
-            return Outcome.New(response);
+            return Outcome.New(OutcomeType.Successful, response);
         }
 
         #endregion

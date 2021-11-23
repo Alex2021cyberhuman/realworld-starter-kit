@@ -14,6 +14,7 @@ namespace Conduit.Auth.Infrastructure.Users.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
+        private User? _requestUser;
 
         public CurrentUserProvider(
             IHttpContextAccessor httpContextAccessor,
@@ -48,10 +49,15 @@ namespace Conduit.Auth.Infrastructure.Users.Services
             if (!id.HasValue)
                 return null;
 
-            var user = await _unitOfWork
-                .GetRequiredRepository<IUsersFindByIdRepository>()
-                .FindByIdAsync(id.Value, cancellationToken);
-            return user;
+            if (_requestUser is null ||
+                _requestUser.Id != id.Value)
+            {
+                _requestUser = await _unitOfWork
+                    .GetRequiredRepository<IUsersFindByIdRepository>()
+                    .FindByIdAsync(id.Value, cancellationToken);    
+            }
+
+            return _requestUser;
         }
 
         #endregion

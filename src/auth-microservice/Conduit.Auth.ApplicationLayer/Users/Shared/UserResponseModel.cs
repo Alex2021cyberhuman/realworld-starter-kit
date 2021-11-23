@@ -20,11 +20,11 @@ namespace Conduit.Auth.ApplicationLayer.Users.Shared
         public string Token { get; set; }
 
         [Required]
-        public string Username { get; set; } = string.Empty;
+        public string Username { get; set; }
 
         [Required]
         [EmailAddress]
-        public string Email { get; set; } = string.Empty;
+        public string Email { get; set; }
 
         [DataType(DataType.ImageUrl)]
         public string? Image { get; init; }

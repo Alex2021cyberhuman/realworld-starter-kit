@@ -20,13 +20,11 @@ namespace Conduit.Auth.Domain.Users.Repositories
             return user;
         }
 
-        public static async Task<User> HashPasswordAndCreateUserAsync(
+        public static async Task<User> CreateUserAsync(
             this IUnitOfWork unitOfWork,
             User newUser,
-            IPasswordManager passwordManager,
             CancellationToken cancellationToken = default)
         {
-            newUser = newUser.WithHashedPassword(passwordManager);
             var repository =
                 unitOfWork.GetRequiredRepository<IUsersWriteRepository>();
             var user = await repository.CreateAsync(newUser, cancellationToken);

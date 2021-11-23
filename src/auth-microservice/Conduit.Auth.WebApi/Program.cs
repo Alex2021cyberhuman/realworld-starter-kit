@@ -1,4 +1,6 @@
-using Conduit.Auth.ApplicationLayer.Users.Shared;
+using Conduit.Auth.ApplicationLayer;
+using Conduit.Auth.ApplicationLayer.Users.GetCurrent;
+using Conduit.Auth.ApplicationLayer.Users.Register;
 using Conduit.Auth.Domain.Services;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Users;
 using Conduit.Auth.Domain.Users.Passwords;
@@ -35,14 +37,14 @@ services.AddSwaggerGen(
 services.AddDapper(configuration.GetSection("Dapper").Bind)
     .AddJwtServices(configuration.GetSection("Jwt").Bind)
     .AddHttpClient()
+    .AddTransient(typeof(IPipelineBehavior<,>), typeof(PipelineLogger<,>))
     .AddTransient<IPasswordManager, PasswordManager>()
     .AddSingleton<IIdManager, IdManager>()
     .AddSingleton<IImageChecker, ImageChecker>()
     .AddHttpContextAccessor()
     .AddScoped<ICurrentUserProvider, CurrentUserProvider>()
-    .AddMediatR(typeof(UserModel).Assembly)
-    .AddAutoMapper(typeof(UsersApplicationLayerMappingProfile).Assembly)
-    .AddValidatorsFromAssembly(typeof(UserModelValidator).Assembly);
+    .AddMediatR(typeof(GetCurrentUserRequestHandler).Assembly)
+    .AddValidatorsFromAssembly(typeof(RegisterUserModelValidator).Assembly);
 
 #endregion
 

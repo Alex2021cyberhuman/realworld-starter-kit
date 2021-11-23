@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Conduit.Auth.ApplicationLayer.Users.Shared;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Outcomes;
 using Conduit.Auth.Domain.Services.ApplicationLayer.Users;
@@ -18,7 +17,6 @@ namespace Conduit.Auth.ApplicationLayer.Users.Update
         : IRequestHandler<UpdateUserRequest, Outcome<UserResponse>>
     {
         private readonly ICurrentUserProvider _currentUserProvider;
-        private readonly IMapper _mapper;
         private readonly IPasswordManager _passwordManager;
         private readonly ITokenProvider _tokenProvider;
         private readonly IUnitOfWork _unitOfWork;
@@ -26,14 +24,12 @@ namespace Conduit.Auth.ApplicationLayer.Users.Update
 
         public UpdateUserRequestHandler(
             IUnitOfWork unitOfWork,
-            IMapper mapper,
             ITokenProvider tokenProvider,
             IPasswordManager passwordManager,
             IValidator<UpdateUserRequest> validator,
             ICurrentUserProvider currentUserProvider)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _tokenProvider = tokenProvider;
             _passwordManager = passwordManager;
             _validator = validator;
@@ -59,7 +55,7 @@ namespace Conduit.Auth.ApplicationLayer.Users.Update
             var token =
                 await _tokenProvider.CreateTokenAsync(user, cancellationToken);
             var response = new UserResponse(user, token);
-            return Outcome.New(response);
+            return Outcome.New(OutcomeType.Successful, response);
         }
 
         #endregion
@@ -74,7 +70,7 @@ namespace Conduit.Auth.ApplicationLayer.Users.Update
             {
                 Email = model.Email ?? source.Email,
                 Password = model.Password ?? source.Password,
-                Biography = model.Biography ?? source.Biography,
+                Biography = model.Bio ?? source.Biography,
                 Image = model.Image ?? source.Image,
             };
             var user = await _unitOfWork.HashPasswordAndUpdateUserAsync(

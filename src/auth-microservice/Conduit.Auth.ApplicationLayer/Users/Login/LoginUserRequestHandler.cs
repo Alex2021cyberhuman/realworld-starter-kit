@@ -44,7 +44,7 @@ namespace Conduit.Auth.ApplicationLayer.Users.Login
                 user,
                 cancellationToken);
             var response = new UserResponse(user, token);
-            return Outcome.New(response);
+            return Outcome.New(OutcomeType.Successful, response);
         }
 
         #endregion

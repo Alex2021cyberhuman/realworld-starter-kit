@@ -16,6 +16,6 @@ namespace Conduit.Auth.ApplicationLayer.Users.Update
         public string? Image { get; set; }
 
         [DataType(DataType.MultilineText)]
-        public string? Biography { get; set; }
+        public string? Bio { get; set; }
     }
 }

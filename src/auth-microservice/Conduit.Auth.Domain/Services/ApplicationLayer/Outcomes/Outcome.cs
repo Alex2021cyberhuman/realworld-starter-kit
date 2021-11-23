@@ -11,11 +11,6 @@ namespace Conduit.Auth.Domain.Services.ApplicationLayer.Outcomes
             return new(result, type);
         }
 
-        public static Outcome<T> New<T>(T? result = default)
-        {
-            return new(result, OutcomeType.Successful);
-        }
-
         public static FluentRejectedOutcome<T> Reject<T>(
             ValidationResult validationResult)
         {
@@ -23,7 +18,7 @@ namespace Conduit.Auth.Domain.Services.ApplicationLayer.Outcomes
         }
     }
 
-    public class Outcome<T>
+    public class Outcome<T> : ITypedOutcome
     {
         internal Outcome(T? result, OutcomeType type)
         {
@@ -34,5 +29,10 @@ namespace Conduit.Auth.Domain.Services.ApplicationLayer.Outcomes
         public T? Result { get; }
 
         public OutcomeType Type { get; }
+
+        public static implicit operator bool(Outcome<T> outcome)
+        {
+            return outcome.Type == OutcomeType.Successful;
+        }
     }
 }
