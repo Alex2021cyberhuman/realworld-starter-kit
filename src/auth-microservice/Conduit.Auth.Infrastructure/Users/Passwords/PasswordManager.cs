@@ -24,13 +24,15 @@ namespace Conduit.Auth.Infrastructure.Users.Passwords
         #region IPasswordManager Members
 
         /// <summary>
-        ///     Returns a hashed representation of the supplied <paramref name="password" /> for the specified
+        ///     Returns a hashed representation of the supplied
+        ///     <paramref name="password" /> for the specified
         ///     <paramref name="user" />.
         /// </summary>
         /// <param name="user">The user whose password is to be hashed.</param>
         /// <param name="password">The password to hash.</param>
         /// <returns>
-        ///     A hashed representation of the supplied <paramref name="password" /> for the specified
+        ///     A hashed representation of the supplied <paramref name="password" /> for
+        ///     the specified
         ///     <paramref name="user" />.
         /// </returns>
         public string HashPassword(string password, User user)
@@ -39,7 +41,8 @@ namespace Conduit.Auth.Infrastructure.Users.Passwords
         }
 
         /// <summary>
-        ///     Returns a <see cref="bool" /> indicating the result of a password hash comparison.
+        ///     Returns a <see cref="bool" /> indicating the result of a password hash
+        ///     comparison.
         /// </summary>
         /// <param name="user">The user whose password should be verified.</param>
         /// <param name="plainPassword">The password supplied for comparison.</param>
@@ -123,14 +126,20 @@ namespace Conduit.Auth.Infrastructure.Users.Passwords
 
                 // Read the salt: must be >= 256 bits
                 if (saltLength < 256 / 8)
+                {
                     return false;
+                }
+
                 byte[] salt = new byte[saltLength];
                 Buffer.BlockCopy(hashedPassword, 12, salt, 0, salt.Length);
 
                 // Read the subkey (the rest of the payload): must be >= 256 bits
                 var subkeyLength = hashedPassword.Length - 12 - salt.Length;
                 if (subkeyLength < 256 / 8)
+                {
                     return false;
+                }
+
                 byte[] expectedSubkey = new byte[subkeyLength];
                 Buffer.BlockCopy(
                     hashedPassword,

@@ -37,23 +37,35 @@ namespace Conduit.Auth.WebApi.Controllers
             {
                 case OutcomeType.Successful:
                     if (response.Result is null)
+                    {
                         return NoContent();
+                    }
+
                     return Ok(response.Result);
                 case OutcomeType.Rejected:
                     if (response is not FluentRejectedOutcome<TResult>
                         rejectedOutcome)
+                    {
                         return BadRequest();
+                    }
+
                     foreach (var error in rejectedOutcome.ValidationResult
                         .Errors)
+                    {
                         ModelState.AddModelError(
                             error.PropertyName,
                             error.ErrorMessage);
+                    }
+
                     return BadRequest(ModelState);
                 case OutcomeType.Failed:
                     return StatusCode(StatusCodes.Status500InternalServerError);
                 case OutcomeType.Banned:
                     if (HttpContext.User.Identity?.IsAuthenticated ?? false)
+                    {
                         return Forbid();
+                    }
+
                     return Unauthorized();
                 default:
                     throw new ArgumentOutOfRangeException();

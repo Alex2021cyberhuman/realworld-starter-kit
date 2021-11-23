@@ -39,7 +39,10 @@ namespace Conduit.Auth.ApplicationLayer.Users.Login
                 _passwordManager,
                 cancellationToken);
             if (user is null)
+            {
                 return Outcome.New<UserResponse>(OutcomeType.Banned);
+            }
+
             var token = await _tokenProvider.CreateTokenAsync(
                 user,
                 cancellationToken);

@@ -18,7 +18,7 @@ namespace Conduit.Auth.Domain.Services.ApplicationLayer.Outcomes
         }
     }
 
-    public class Outcome<T> : ITypedOutcome
+    public class Outcome<T>
     {
         internal Outcome(T? result, OutcomeType type)
         {

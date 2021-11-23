@@ -9,8 +9,8 @@ namespace Conduit.Auth.ApplicationLayer.Users.Shared
 {
     public class UniqueEmailValidator<T> : AsyncPropertyValidator<T, string?>
     {
-        private readonly IUsersFindByEmailRepository _findByEmailRepository;
         private readonly ICurrentUserProvider? _currentUserProvider;
+        private readonly IUsersFindByEmailRepository _findByEmailRepository;
 
         public UniqueEmailValidator(
             IUsersFindByEmailRepository findByEmailRepository,
@@ -19,22 +19,27 @@ namespace Conduit.Auth.ApplicationLayer.Users.Shared
             _findByEmailRepository = findByEmailRepository;
             _currentUserProvider = currentUserProvider;
         }
-        
+
+        public override string Name => nameof(UniqueEmailValidator<T>);
+
         public override async Task<bool> IsValidAsync(
             ValidationContext<T> context,
             string? value,
             CancellationToken cancellation)
         {
             if (string.IsNullOrEmpty(value))
+            {
                 return true;
-            
-            var user = await _findByEmailRepository.FindByEmailAsync(value, cancellation);
+            }
+
+            var user =
+                await _findByEmailRepository.FindByEmailAsync(
+                    value,
+                    cancellation);
 
             return await user.CheckCurrentUser(
                 _currentUserProvider,
                 cancellation);
         }
-
-        public override string Name => nameof(UniqueEmailValidator<T>);
     }
 }

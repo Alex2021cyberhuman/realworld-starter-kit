@@ -43,7 +43,10 @@ namespace Conduit.Auth.Infrastructure.Dapper.Connection
         public async ValueTask DisposeAsync()
         {
             if (_currentScopeConnection is not null)
+            {
                 await _currentScopeConnection.DisposeAsync();
+            }
+
             GC.SuppressFinalize(this);
         }
 
@@ -55,7 +58,9 @@ namespace Conduit.Auth.Infrastructure.Dapper.Connection
             CancellationToken cancellationToken)
         {
             if (connection is null)
+            {
                 return await New();
+            }
 
             switch (connection.FullState)
             {

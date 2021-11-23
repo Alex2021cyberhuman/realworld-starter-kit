@@ -48,9 +48,15 @@ namespace Conduit.Auth.ApplicationLayer.Users.Update
                 await _currentUserProvider.GetCurrentUserAsync(
                     cancellationToken);
             if (user is null)
+            {
                 return Outcome.New<UserResponse>(OutcomeType.Banned);
+            }
+
             if (!validationResult.IsValid)
+            {
                 return Outcome.Reject<UserResponse>(validationResult);
+            }
+
             user = await UpdateUserAsync(request, user, cancellationToken);
             var token =
                 await _tokenProvider.CreateTokenAsync(user, cancellationToken);
@@ -71,7 +77,7 @@ namespace Conduit.Auth.ApplicationLayer.Users.Update
                 Email = model.Email ?? source.Email,
                 Password = model.Password ?? source.Password,
                 Biography = model.Bio ?? source.Biography,
-                Image = model.Image ?? source.Image,
+                Image = model.Image ?? source.Image
             };
             var user = await _unitOfWork.HashPasswordAndUpdateUserAsync(
                 newUser,

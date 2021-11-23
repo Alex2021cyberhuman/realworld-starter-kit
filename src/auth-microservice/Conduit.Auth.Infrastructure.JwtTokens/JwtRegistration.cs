@@ -61,10 +61,10 @@ namespace Conduit.Auth.Infrastructure.JwtTokens
 
         private static Task ReceiveToken(MessageReceivedContext context)
         {
-            var header = context
-                .HttpContext.Request.Headers.Authorization[0];
+            var header = context.HttpContext.Request.Headers.Authorization[0];
             const string prefix = "Token ";
-            if (header != null && header.StartsWith(prefix))
+            if (header != null &&
+                header.StartsWith(prefix))
             {
                 header = header.Remove(0, prefix.Length);
             }

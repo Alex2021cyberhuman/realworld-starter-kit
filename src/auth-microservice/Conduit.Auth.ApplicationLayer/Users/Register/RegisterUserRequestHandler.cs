@@ -45,7 +45,9 @@ namespace Conduit.Auth.ApplicationLayer.Users.Register
             var validationOutcome =
                 await ValidateAsync(request, cancellationToken);
             if (!validationOutcome)
+            {
                 return validationOutcome;
+            }
 
             var user = await CreateUserAsync(request, cancellationToken);
 

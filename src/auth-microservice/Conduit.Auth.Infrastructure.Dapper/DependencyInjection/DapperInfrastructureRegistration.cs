@@ -44,8 +44,10 @@ namespace Conduit.Auth.Infrastructure.Dapper.DependencyInjection
                         .For.Migrations())
                 .AddTransient<MigrationService>();
             if (!CheckRepositoriesFromDomain(services))
+            {
                 throw new InvalidOperationException(
                     "Not all repositories have been registered");
+            }
 
             return services;
         }

@@ -32,7 +32,10 @@ namespace Conduit.Auth.ApplicationLayer.Users.GetCurrent
                 await _currentUserProvider.GetCurrentUserAsync(
                     cancellationToken);
             if (user is null)
+            {
                 return Outcome.New<UserResponse>(OutcomeType.Banned);
+            }
+
             var token =
                 await _tokenProvider.CreateTokenAsync(user, cancellationToken);
             var response = new UserResponse(user, token);

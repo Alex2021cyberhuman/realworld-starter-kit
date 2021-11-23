@@ -37,7 +37,9 @@ namespace Conduit.Auth.Infrastructure.Users.Services
                     IsAuthenticated: true
                 } ||
                 !Guid.TryParse(idClaim?.Value, out var id))
+            {
                 return Task.FromResult<Guid?>(null);
+            }
 
             return Task.FromResult<Guid?>(id);
         }
@@ -47,14 +49,16 @@ namespace Conduit.Auth.Infrastructure.Users.Services
         {
             var id = await GetCurrentUserIdAsync(cancellationToken);
             if (!id.HasValue)
+            {
                 return null;
+            }
 
             if (_requestUser is null ||
                 _requestUser.Id != id.Value)
             {
                 _requestUser = await _unitOfWork
                     .GetRequiredRepository<IUsersFindByIdRepository>()
-                    .FindByIdAsync(id.Value, cancellationToken);    
+                    .FindByIdAsync(id.Value, cancellationToken);
             }
 
             return _requestUser;

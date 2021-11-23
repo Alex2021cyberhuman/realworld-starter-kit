@@ -15,9 +15,12 @@ namespace Conduit.Auth.Domain.Services.DataAccess
             Type repositoryType)
         {
             if (!typeof(IRepository).IsAssignableFrom(repositoryType))
+            {
                 throw new ArgumentException(
                     "Invalid repositoryType",
                     nameof(repositoryType));
+            }
+
             var repository = _genericMethod.MakeGenericMethod(repositoryType)
                 .Invoke(unitOfWork, Array.Empty<object>());
             return repository;

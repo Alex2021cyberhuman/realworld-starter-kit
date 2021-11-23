@@ -23,7 +23,7 @@ namespace Conduit.Auth.Infrastructure.Dapper.Users
             _compiler = compiler;
         }
 
-        #region IUsersFindByEmailRepository Members
+        #region IUsersFindByUsernameRepository Members
 
         public async Task<User?> FindByUsernameAsync(
             string username,

@@ -16,13 +16,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region ServicesConfiguration
 
 var services = builder.Services;
-// var environment = builder.Environment;
+var environment = builder.Environment;
 var configuration = builder.Configuration;
 
 services.AddControllers();
@@ -36,6 +37,7 @@ services.AddSwaggerGen(
 
 services.AddDapper(configuration.GetSection("Dapper").Bind)
     .AddJwtServices(configuration.GetSection("Jwt").Bind)
+    .AddW3CLogging(configuration.GetSection("W3C").Bind)
     .AddHttpClient()
     .AddTransient(typeof(IPipelineBehavior<,>), typeof(PipelineLogger<,>))
     .AddTransient<IPasswordManager, PasswordManager>()
@@ -52,7 +54,7 @@ var app = builder.Build();
 
 #region AppConfiguration
 
-if (builder.Environment.IsDevelopment())
+if (environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
@@ -60,8 +62,10 @@ if (builder.Environment.IsDevelopment())
         c => c.SwaggerEndpoint(
             "/swagger/v1/swagger.json",
             "Conduit.Auth.WebApi v1"));
+    IdentityModelEventSource.ShowPII = true;
 }
 
+app.UseW3CLogging();
 app.UseAuthentication();
 app.UseAuthorization();
 

@@ -6,8 +6,7 @@ using FluentValidation.Validators;
 
 namespace Conduit.Auth.ApplicationLayer.Users.Shared
 {
-    public class ImagePropertyValidator<T>
-        : AsyncPropertyValidator<T, string?>
+    public class ImagePropertyValidator<T> : AsyncPropertyValidator<T, string?>
     {
         private readonly IImageChecker _imageChecker;
 
@@ -24,9 +23,15 @@ namespace Conduit.Auth.ApplicationLayer.Users.Shared
             CancellationToken cancellation)
         {
             if (value is null)
+            {
                 return true;
+            }
+
             if (await _imageChecker.CheckImageAsync(value, cancellation))
+            {
                 return true;
+            }
+
             context.AddFailure(
                 $"Cannot access this url or invalid format: {value}");
             return false;

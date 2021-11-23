@@ -13,9 +13,14 @@ namespace Conduit.Auth.Infrastructure.Dapper.Users.Mappings
             yield return new(UsersColumns.Email, user.Email);
             yield return new(UsersColumns.Password, user.Password);
             if (user.Image is not null)
+            {
                 yield return new(UsersColumns.Image, user.Image);
+            }
+
             if (user.Biography is not null)
+            {
                 yield return new(UsersColumns.Biography, user.Biography);
+            }
         }
     }
 }

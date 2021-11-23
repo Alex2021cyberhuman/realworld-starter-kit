@@ -9,7 +9,9 @@ namespace Conduit.Auth.ApplicationLayer.Users.Register
     public class RegisterUserRequestValidator
         : AbstractValidator<RegisterUserRequest>
     {
-        public RegisterUserRequestValidator(IImageChecker imageChecker, IUnitOfWork unitOfWork)
+        public RegisterUserRequestValidator(
+            IImageChecker imageChecker,
+            IUnitOfWork unitOfWork)
         {
             RuleFor(x => x.User)
                 .SetValidator(new RegisterUserModelValidator(imageChecker));

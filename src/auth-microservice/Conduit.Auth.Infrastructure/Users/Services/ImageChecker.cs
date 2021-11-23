@@ -26,7 +26,10 @@ namespace Conduit.Auth.Infrastructure.Users.Services
                 HttpCompletionOption.ResponseHeadersRead,
                 cancellationToken);
             if (!response.IsSuccessStatusCode)
+            {
                 return false;
+            }
+
             return response.Content.Headers.ContentLength <= 10_000_000;
         }
 

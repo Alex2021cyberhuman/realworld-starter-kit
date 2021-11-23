@@ -8,21 +8,28 @@ using Microsoft.Extensions.Logging;
 namespace Conduit.Auth.ApplicationLayer
 {
     public class PipelineLogger<TRequest, TResponse>
-        : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull where TResponse : ITypedOutcome
+        : IPipelineBehavior<TRequest, TResponse>
+        where TRequest : notnull where TResponse : ITypedOutcome
     {
         private readonly ILogger<PipelineLogger<TRequest, TResponse>> _logger;
 
-        public PipelineLogger(ILogger<PipelineLogger<TRequest, TResponse>> logger)
+        public PipelineLogger(
+            ILogger<PipelineLogger<TRequest, TResponse>> logger)
         {
             _logger = logger;
         }
+
+        #region IPipelineBehavior<TRequest,TResponse> Members
 
         public async Task<TResponse> Handle(
             TRequest request,
             CancellationToken cancellationToken,
             RequestHandlerDelegate<TResponse> next)
         {
-            _logger.LogInformation(EventIds.StartHandling, "Start handling request: {Request}", request);
+            _logger.LogInformation(
+                EventIds.StartHandling,
+                "Start handling request: {Request}",
+                request);
 
             var result = await next();
 
@@ -30,6 +37,8 @@ namespace Conduit.Auth.ApplicationLayer
 
             return result;
         }
+
+        #endregion
 
         private void LogResponse(TRequest request, OutcomeType outcomeType)
         {
@@ -60,26 +69,29 @@ namespace Conduit.Auth.ApplicationLayer
                         request);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(outcomeType), "outcomeType is invalid");
+                    throw new ArgumentOutOfRangeException(
+                        nameof(outcomeType),
+                        "outcomeType is invalid");
             }
         }
 
+        #region Nested type: EventIds
+
         public static class EventIds
         {
-            public static EventId StartHandling =>
-                new EventId(5221, "StartHandling");
-            
+            public static EventId StartHandling => new(5221, "StartHandling");
+
             public static EventId SuccessfulHandling =>
-                new EventId(5211, "SuccessfulHandling");
-            
+                new(5211, "SuccessfulHandling");
+
             public static EventId RejectedHandling =>
-                new EventId(5212, "RejectedHandling");
-            
-            public static EventId FailedHandling =>
-                new EventId(5213, "FailedHandling");
-            
-            public static EventId BannedHandling =>
-                new EventId(5214, "BannedHandling");
+                new(5212, "RejectedHandling");
+
+            public static EventId FailedHandling => new(5213, "FailedHandling");
+
+            public static EventId BannedHandling => new(5214, "BannedHandling");
         }
+
+        #endregion
     }
 }
