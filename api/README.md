@@ -9,3 +9,6 @@ APIURL=http://localhost:3000/api ./run-api-tests.sh
 ```
 
 For more details, see [`run-api-tests.sh`](run-api-tests.sh).
+
+https://gothinkster.github.io/realworld/docs/specs/backend-specs/introduction
+
