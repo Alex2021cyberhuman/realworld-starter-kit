@@ -1,0 +1,8 @@
+[submodule "src/person-microservice"]
+	path = src/person-microservice
+	url = https://github.com/alex2021cyberhuman-team/person-microservice.git
+	branch = develop
+[submodule "src/auth-microservice"]
+	path = src/auth-microservice
+	url = https://github.com/alex2021cyberhuman-team/auth-microservice.git
+	branch = develop
