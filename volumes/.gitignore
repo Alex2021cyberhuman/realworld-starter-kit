@@ -1,0 +1,4 @@
+﻿auth-storage/postgres/data/
+auth-storage/postgres/logs/
+person-storage/neo4j/data/
+person-storage/neo4j/logs/

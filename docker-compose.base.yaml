@@ -18,12 +18,12 @@ services:
       dockerfile: ./Dockerfile
 
   auth-storage:
-    image: postgres:latest
+    image: postgres:alpine
 
   #proxy
   proxy:
-    image: nginx:latest
-
-  #queue
-  queue:
-    image: rabbitmq:latest
+    image: nginx:alpine
+#
+#  #queue
+#  queue:
+#    image: rabbitmq:alpine
