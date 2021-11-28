@@ -1,0 +1,71 @@
+version: '3.4'
+services:
+  #person-microservice
+  person:
+    build:
+      dockerfile: ./watcher.Dockerfile
+    volumes:
+      - ./src/person-microservice/:src/
+    depends_on:
+      - person-storage
+    ports:
+      - "50:80"
+
+  #person-storage
+  # neo4j
+  person-storage:
+    ports: 
+      - "3051:7474"
+      - "3052:7687"
+    volumes:
+      - ./volumes/person-storage/neo4j/data/:/data/
+
+  #auth-microservice
+  auth:
+    build:
+      dockerfile: ./watcher.Dockerfile
+    volumes:
+      - ./src/auth-microservice/:src/
+    depends_on:
+      - auth-storage
+    ports:
+      - "3060:80"
+
+  #auth-storage
+  # postgres
+  # login postgres:myPassword
+  auth-storage:
+    ports:
+      - "3065:5432"
+    environment:
+      - POSTGRES_PASSWORD=myPassword
+      - PGDATA=/pg_data
+    volumes:
+      - ./volumes/auth-storage/postgres/data/:/var/lib/postgresql/data/pgdata/
+      - ./volumes/auth-storage/postgres/logs/:/pg_log/
+    command: postgres -c logging_collector=on -c log_directory=/pg_log -c log_statement=all -c log_rotation_age=5m
+
+  #proxy
+  # nginx
+  proxy:
+    volumes:
+      - ./conf/proxy/proxy.conf:/etc/nginx/proxy.conf:ro
+      - ./conf/proxy/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - auth
+      - person
+    ports:
+      - "80:80"
+
+  #queue
+  # rabbitmq
+  # login myUser:myPassword
+  queue: 
+    hostname: "queue"
+    labels:
+      NAME: "queue"
+    volumes:
+      - ./conf/queue/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+    ports:
+      - "5671:5671" # Queue
+      - "15671:15671" # UI
