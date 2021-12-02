@@ -18,7 +18,7 @@ services:
   #person-storage
   # neo4j:my_password
   person-storage:
-    ports: 
+    ports:
       - "3051:7474"
       - "3052:7687"
     volumes:
@@ -26,7 +26,7 @@ services:
       - ./volumes/person-storage/neo4j/logs/:/logs/
     env_file:
       - ./conf/person-storage/dev.env
-        
+
   #auth-microservice
   auth:
     build:
@@ -37,6 +37,7 @@ services:
       - ./conf/auth/appsettings.Development.json:/src/Conduit.Auth.WebApi/appsettings.Development.json
     depends_on:
       - auth-storage
+      - queue
     ports:
       - "3060:80"
     env_file:
@@ -51,7 +52,7 @@ services:
     env_file:
       - ./conf/auth-storage/dev.env
     volumes:
-      - ./volumes/auth-storage/postgres/data/:/var/lib/postgresql/data/pgdata/
+      - ./volumes/auth-storage/postgres/data/:/pg_data/
       - ./volumes/auth-storage/postgres/logs/:/pg_log/
     command: postgres -c logging_collector=on -c log_directory=/pg_log -c log_statement=all -c log_rotation_age=5
 
@@ -70,12 +71,12 @@ services:
   #queue
   # rabbitmq
   # login myUser:myPassword
-#  queue: 
-#    hostname: "queue"
-#    labels:
-#      NAME: "queue"
-#    volumes:
-#      - ./conf/queue/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
-#    ports:
-#      - "5671:5671" # Queue
-#      - "15671:15671" # UI
+  queue:
+    hostname: "queue"
+    labels:
+      NAME: "queue"
+    volumes:
+      - ./conf/queue/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+    ports:
+      - "5671:5671" # Queue
+      - "15671:15671" # UI

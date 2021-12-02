@@ -23,7 +23,7 @@ services:
   #proxy
   proxy:
     image: nginx:alpine
-#
-#  #queue
-#  queue:
-#    image: rabbitmq:alpine
+  #
+  #  #queue
+  queue:
+    image: rabbitmq:alpine

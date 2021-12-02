@@ -1,18 +1,21 @@
-param($enviroment='dev', $need_build=1);
+param($enviroment = 'dev', $need_build = 1);
 
 $ErrorActionPreference = "Stop"
 
-$docker_compose_build_command='';
-$docker_compose_up_command='';
+$docker_compose_build_command = '';
+$docker_compose_up_command = '';
 
-if($enviroment -eq 'dev') {
-    $files="-f 'docker-compose.base.yaml' -f 'docker-compose.dev.yaml' -f 'docker-compose.local.yaml'";
-    if ($need_build -eq 1) {
-        $docker_compose_build_command="docker compose $files  build --progress=plain";
+if ($enviroment -eq 'dev')
+{
+    $files = "-f 'docker-compose.base.yaml' -f 'docker-compose.dev.yaml' -f 'docker-compose.local.yaml'";
+    if ($need_build -eq 1)
+    {
+        $docker_compose_build_command = "docker compose $files  build --progress=plain";
     }
-    $docker_compose_up_command="docker compose $files  up"
+    $docker_compose_up_command = "docker compose $files  up"
 }
-else {
+else
+{
     throw "invalid enviroment: '${enviroment}'";
 }
 
