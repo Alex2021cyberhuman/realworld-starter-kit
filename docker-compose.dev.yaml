@@ -2,14 +2,9 @@ version: '3.4'
 services:
   #person-microservice
   person:
-    build:
-      dockerfile: ./watcher.Dockerfile
     volumes:
-      - ./src/person-microservice/:/src/
-      - ./conf/person/appsettings.json:/src/Conduit.Person.WebApi/appsettings.json
-      - ./conf/person/appsettings.Development.json:/src/Conduit.Person.WebApi/appsettings.Development.json
-    depends_on:
-      - person-storage
+      - ./conf/person/appsettings.json:/app/appsettings.json
+      - ./conf/person/appsettings.Development.json:/app/appsettings.Development.json
     ports:
       - "3050:80"
     env_file:
@@ -29,15 +24,9 @@ services:
 
   #auth-microservice
   auth:
-    build:
-      dockerfile: ./watcher.Dockerfile
     volumes:
-      - ./src/auth-microservice/:/src/
-      - ./conf/auth/appsettings.json:/src/Conduit.Auth.WebApi/appsettings.json
-      - ./conf/auth/appsettings.Development.json:/src/Conduit.Auth.WebApi/appsettings.Development.json
-    depends_on:
-      - auth-storage
-      - queue
+      - ./conf/auth/appsettings.json:/app/appsettings.json
+      - ./conf/auth/appsettings.Development.json:/app/appsettings.Development.json
     ports:
       - "3060:80"
     env_file:
@@ -78,5 +67,9 @@ services:
     volumes:
       - ./conf/queue/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
     ports:
-      - "5671:5671" # Queue
-      - "15671:15671" # UI
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+      - "25672:25672"
+      - "15671:15671"
+      - "15672:15672" # UI
