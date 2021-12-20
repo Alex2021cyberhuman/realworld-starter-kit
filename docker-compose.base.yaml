@@ -26,4 +26,4 @@ services:
   #
   #  #queue
   queue:
-    image: rabbitmq:alpine
+    image: rabbitmq:management

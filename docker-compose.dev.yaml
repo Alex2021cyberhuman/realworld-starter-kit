@@ -42,8 +42,8 @@ services:
       - ./conf/auth-storage/dev.env
     volumes:
       - ./volumes/auth-storage/postgres/data/:/pg_data/
-      - ./volumes/auth-storage/postgres/logs/:/pg_log/
-    command: postgres -c logging_collector=on -c log_directory=/pg_log -c log_statement=all -c log_rotation_age=5
+      - ./volumes/auth-storage/postgres/logs/:/pg_log/:z
+    command: postgres -c logging_collector=on -c log_directory=/pg_log/ -c log_statement=all -c log_rotation_age=60
 
   #proxy
   # nginx
