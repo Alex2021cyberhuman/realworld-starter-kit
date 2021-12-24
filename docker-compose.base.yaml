@@ -18,7 +18,7 @@ services:
       dockerfile: ./Dockerfile
 
   auth-storage:
-    image: postgres:alpine
+    image: mongo:latest
 
   #proxy
   proxy:

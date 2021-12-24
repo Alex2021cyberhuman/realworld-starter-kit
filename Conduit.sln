@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Auth.ApplicationLay
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Auth.Domain", "src\auth-microservice\Conduit.Auth.Domain\Conduit.Auth.Domain.csproj", "{61208A8A-CA56-48FA-92CC-8ABC32D22B02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Auth.Infrastructure.Dapper", "src\auth-microservice\Conduit.Auth.Infrastructure.Dapper\Conduit.Auth.Infrastructure.Dapper.csproj", "{C68D4290-1AF5-4747-93D4-96F47516F035}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Auth.Infrastructure.MongoDB", "src\auth-microservice\Conduit.Auth.Infrastructure.MongoDB\Conduit.Auth.Infrastructure.MongoDB.csproj", "{C68D4290-1AF5-4747-93D4-96F47516F035}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Auth.Infrastructure.JwtTokens", "src\auth-microservice\Conduit.Auth.Infrastructure.JwtTokens\Conduit.Auth.Infrastructure.JwtTokens.csproj", "{5A3EBB6F-D6EB-48C6-929D-F8B7D4B01457}"
 EndProject

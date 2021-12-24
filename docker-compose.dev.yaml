@@ -34,16 +34,15 @@ services:
 
   #auth-storage
   # postgres
-  # login postgres:my_password
+  # login my_username:my_password
   auth-storage:
     ports:
-      - "3061:5432"
+      - "3061:27017"
     env_file:
       - ./conf/auth-storage/dev.env
     volumes:
-      - ./volumes/auth-storage/postgres/data/:/pg_data/
-      - ./volumes/auth-storage/postgres/logs/:/pg_log/:z
-    command: postgres -c logging_collector=on -c log_directory=/pg_log/ -c log_statement=all -c log_rotation_age=60
+      - ./volumes/auth-storage/mongo/data/:/data/db
+      - ./volumes/auth-storage/mongo/logs/:/var/log/mongodb/
 
   #proxy
   # nginx
@@ -67,9 +66,4 @@ services:
     volumes:
       - ./conf/queue/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
     ports:
-      - "4369:4369"
-      - "5671:5671"
-      - "5672:5672"
-      - "25672:25672"
-      - "15671:15671"
-      - "15672:15672" # UI
+      - "50071:15671"
