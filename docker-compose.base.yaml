@@ -1,8 +1,18 @@
 version: '3.4'
 services:
   #person-microservice
+  articles:
+    image: ${DOCKER_REGISTRY-}articles:prebuild
+    build:
+      context: ./src/articles-microservice/
+      dockerfile: ./Dockerfile
+  
+  articles-storage:
+    image: postgres:latest
+  
+  #person-microservice
   person:
-    image: ${DOCKER_REGISTRY-}person
+    image: ${DOCKER_REGISTRY-}person:prebuild
     build:
       context: ./src/person-microservice/
       dockerfile: ./Dockerfile
@@ -12,7 +22,7 @@ services:
 
   #auth-microservice
   auth:
-    image: ${DOCKER_REGISTRY-}auth
+    image: ${DOCKER_REGISTRY-}auth:prebuild
     build:
       context: ./src/auth-microservice/
       dockerfile: ./Dockerfile

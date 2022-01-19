@@ -1,5 +1,29 @@
 version: '3.4'
 services:
+  #articles-microservice
+  articles:
+    ports:
+      - "3070:80"
+    env_file:
+      - ./conf/articles/web-dev.env
+    volumes:
+      - ./conf/articles/appsettings.json:/app/appsettings.json
+      - ./conf/articles/appsettings.Development.json:/app/appsettings.Development.json
+
+  #articles-storage
+  # my_username:my_password
+  articles-storage:
+    ports:
+      - "3071:5432"
+    env_file:
+      - ./conf/articles-storage/db-dev.env
+    volumes:
+      - ./volumes/articles-storage/postgres/logs:/pg_log
+      - ./volumes/articles-storage/postgres/data:/pg_data
+    entrypoint:
+      "docker-entrypoint.sh -c logging_collector=true -c log_directory=/pg_log -c log_rotation_age=60 -c log_min_duration_statement=250"
+  
+  
   #person-microservice
   person:
     volumes:

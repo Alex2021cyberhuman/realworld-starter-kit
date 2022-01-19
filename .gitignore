@@ -424,14 +424,5 @@ FodyWeavers.xsd
 /volumes/auth-storage/mongo/logs
 /volumes/person-storage/neo4j/data
 /volumes/person-storage/neo4j/logs
-
-#rm /volumes/auth-storage/postgres/data
-#mkdir /volumes/auth-storage/postgres/data
-#rm /volumes/auth-storage/postgres/logs
-#mkdir /volumes/auth-storage/postgres/logs
-#rm /volumes/person-storage/neo4j/data
-#mkdir /volumes/person-storage/neo4j/data
-#rm /volumes/person-storage/neo4j/logs
-#mkdir /volumes/person-storage/neo4j/logs
-#
-#
+/volumes/articles-storage/postgres/data
+/volumes/articles-storage/postgres/logs
