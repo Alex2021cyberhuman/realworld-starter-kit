@@ -6,3 +6,7 @@
 	path = src/auth-microservice
 	url = https://github.com/alex2021cyberhuman-team/auth-microservice.git
 	branch = develop
+[submodule "src/articles-microservice"]
+	path = src/articles-microservice
+	url = https://github.com/alex2021cyberhuman-team/articles-microservice.git
+	branch = develop
