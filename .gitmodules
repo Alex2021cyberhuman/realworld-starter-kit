@@ -10,3 +10,6 @@
 	path = src/articles-microservice
 	url = https://github.com/alex2021cyberhuman-team/articles-microservice.git
 	branch = develop
+[submodule "src/likes-microservice"]
+	path = src/likes-microservice
+	url = https://github.com/alex2021cyberhuman-team/likes-microservice.git
