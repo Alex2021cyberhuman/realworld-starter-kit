@@ -1,53 +1,62 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Conduit.Auth", "Conduit.Auth", "{5B4C75AC-D04D-4987-A7D6-7AC8FCC65865}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Auth.Infrastructure", "src\auth-microservice\Conduit.Auth.Infrastructure\Conduit.Auth.Infrastructure.csproj", "{D1336FDA-09A0-4DD0-9A56-243777A2DBB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.Infrastructure", "src\auth-microservice\Conduit.Auth.Infrastructure\Conduit.Auth.Infrastructure.csproj", "{D1336FDA-09A0-4DD0-9A56-243777A2DBB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Auth.ApplicationLayer", "src\auth-microservice\Conduit.Auth.ApplicationLayer\Conduit.Auth.ApplicationLayer.csproj", "{BEAADFF2-26CE-4482-8477-CD4D585B1815}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.ApplicationLayer", "src\auth-microservice\Conduit.Auth.ApplicationLayer\Conduit.Auth.ApplicationLayer.csproj", "{BEAADFF2-26CE-4482-8477-CD4D585B1815}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Auth.Domain", "src\auth-microservice\Conduit.Auth.Domain\Conduit.Auth.Domain.csproj", "{61208A8A-CA56-48FA-92CC-8ABC32D22B02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.Domain", "src\auth-microservice\Conduit.Auth.Domain\Conduit.Auth.Domain.csproj", "{61208A8A-CA56-48FA-92CC-8ABC32D22B02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Auth.Infrastructure.MongoDB", "src\auth-microservice\Conduit.Auth.Infrastructure.MongoDB\Conduit.Auth.Infrastructure.MongoDB.csproj", "{C68D4290-1AF5-4747-93D4-96F47516F035}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.Infrastructure.MongoDB", "src\auth-microservice\Conduit.Auth.Infrastructure.MongoDB\Conduit.Auth.Infrastructure.MongoDB.csproj", "{C68D4290-1AF5-4747-93D4-96F47516F035}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Auth.Infrastructure.JwtTokens", "src\auth-microservice\Conduit.Auth.Infrastructure.JwtTokens\Conduit.Auth.Infrastructure.JwtTokens.csproj", "{5A3EBB6F-D6EB-48C6-929D-F8B7D4B01457}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.Infrastructure.JwtTokens", "src\auth-microservice\Conduit.Auth.Infrastructure.JwtTokens\Conduit.Auth.Infrastructure.JwtTokens.csproj", "{5A3EBB6F-D6EB-48C6-929D-F8B7D4B01457}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Auth.WebApi", "src\auth-microservice\Conduit.Auth.WebApi\Conduit.Auth.WebApi.csproj", "{D7A8B00F-F9C8-45A3-93B2-AD13070B850C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.WebApi", "src\auth-microservice\Conduit.Auth.WebApi\Conduit.Auth.WebApi.csproj", "{D7A8B00F-F9C8-45A3-93B2-AD13070B850C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Shared", "src\auth-microservice\shared-core\Conduit.Shared\Conduit.Shared.csproj", "{F01C1C82-AC5D-46A7-A494-78330131C4C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Shared", "src\auth-microservice\shared-core\Conduit.Shared\Conduit.Shared.csproj", "{F01C1C82-AC5D-46A7-A494-78330131C4C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Conduit.Person", "Conduit.Person", "{E5FC6FB2-7596-445E-8439-9DCA93A44883}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Person.BusinessLogic", "src\person-microservice\Conduit.Person.BusinessLogic\Conduit.Person.BusinessLogic.csproj", "{1C66F940-007F-459E-98D7-D959B166A676}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Person.BusinessLogic", "src\person-microservice\Conduit.Person.BusinessLogic\Conduit.Person.BusinessLogic.csproj", "{1C66F940-007F-459E-98D7-D959B166A676}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Person.WebApi", "src\person-microservice\Conduit.Person.WebApi\Conduit.Person.WebApi.csproj", "{D6F06D70-298E-4EF9-9259-9512B62D21D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Person.WebApi", "src\person-microservice\Conduit.Person.WebApi\Conduit.Person.WebApi.csproj", "{D6F06D70-298E-4EF9-9259-9512B62D21D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Shared", "src\person-microservice\shared-core\Conduit.Shared\Conduit.Shared.csproj", "{F33DB91F-BA5F-4288-97B0-4C4932E19B89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Shared", "src\person-microservice\shared-core\Conduit.Shared\Conduit.Shared.csproj", "{F33DB91F-BA5F-4288-97B0-4C4932E19B89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Person.DataAccessLayer", "src\person-microservice\Conduit.Person.DataAccessLayer\Conduit.Person.DataAccessLayer.csproj", "{7A0EFC2C-BEF4-40FF-ADC0-28AEA1C7ED41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Person.DataAccessLayer", "src\person-microservice\Conduit.Person.DataAccessLayer\Conduit.Person.DataAccessLayer.csproj", "{7A0EFC2C-BEF4-40FF-ADC0-28AEA1C7ED41}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Conduit.Articles", "Conduit.Articles", "{BDCA5C09-0C52-4320-906B-13EE6818950A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Articles.DomainLayer", "src\articles-microservice\Conduit.Articles.DomainLayer\Conduit.Articles.DomainLayer.csproj", "{DC8ADBE6-4DD2-4500-9107-0030F440C0C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Articles.DomainLayer", "src\articles-microservice\Conduit.Articles.DomainLayer\Conduit.Articles.DomainLayer.csproj", "{DC8ADBE6-4DD2-4500-9107-0030F440C0C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Shared", "src\articles-microservice\shared-core\Conduit.Shared\Conduit.Shared.csproj", "{441A36C4-ED8B-4030-90B3-C4B07B83964D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Shared", "src\articles-microservice\shared-core\Conduit.Shared\Conduit.Shared.csproj", "{441A36C4-ED8B-4030-90B3-C4B07B83964D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Articles.DataAccessLayer", "src\articles-microservice\Conduit.Articles.DataAccessLayer\Conduit.Articles.DataAccessLayer.csproj", "{52B5EC5C-66B4-4D06-B2F8-D7D9D29BA35A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Articles.DataAccessLayer", "src\articles-microservice\Conduit.Articles.DataAccessLayer\Conduit.Articles.DataAccessLayer.csproj", "{52B5EC5C-66B4-4D06-B2F8-D7D9D29BA35A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Articles.BusinessLogicLayer", "src\articles-microservice\Conduit.Articles.BusinessLogicLayer\Conduit.Articles.BusinessLogicLayer.csproj", "{D74548BF-C39A-4C7B-87FC-E0AE6D13F2A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Articles.BusinessLogicLayer", "src\articles-microservice\Conduit.Articles.BusinessLogicLayer\Conduit.Articles.BusinessLogicLayer.csproj", "{D74548BF-C39A-4C7B-87FC-E0AE6D13F2A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Articles.PresentationLayer", "src\articles-microservice\Conduit.Articles.PresentationLayer\Conduit.Articles.PresentationLayer.csproj", "{89B17AD5-14E4-4501-BBD8-3B0395DA0D99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Articles.PresentationLayer", "src\articles-microservice\Conduit.Articles.PresentationLayer\Conduit.Articles.PresentationLayer.csproj", "{89B17AD5-14E4-4501-BBD8-3B0395DA0D99}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Conduit.Likes", "Conduit.Likes", "{1117AD49-A4F1-4C58-A0D4-1D230D7C4523}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Likes.BusinessLogic", "src\likes-microservice\Conduit.Likes.BusinessLogic\Conduit.Likes.BusinessLogic.csproj", "{34EA6158-9CC0-469D-8C0D-DFE6191D4872}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Likes.DataAccess", "src\likes-microservice\Conduit.Likes.DataAccess\Conduit.Likes.DataAccess.csproj", "{66D124BB-ADA2-4A36-A51E-E1FCDBFDFE36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Likes.Domain", "src\likes-microservice\Conduit.Likes.Domain\Conduit.Likes.Domain.csproj", "{1E90F8E8-59C5-4B24-8585-912BE49EF4FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Likes.WebApi", "src\likes-microservice\Conduit.Likes.WebApi\Conduit.Likes.WebApi.csproj", "{5E4CBC91-476E-428D-AEAE-460495A83AF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Shared", "src\likes-microservice\shared-core\Conduit.Shared\Conduit.Shared.csproj", "{55882656-4039-4DEA-8F78-08D9B66E0FFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D1336FDA-09A0-4DD0-9A56-243777A2DBB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -114,6 +123,29 @@ Global
 		{89B17AD5-14E4-4501-BBD8-3B0395DA0D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89B17AD5-14E4-4501-BBD8-3B0395DA0D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89B17AD5-14E4-4501-BBD8-3B0395DA0D99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34EA6158-9CC0-469D-8C0D-DFE6191D4872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34EA6158-9CC0-469D-8C0D-DFE6191D4872}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34EA6158-9CC0-469D-8C0D-DFE6191D4872}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34EA6158-9CC0-469D-8C0D-DFE6191D4872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66D124BB-ADA2-4A36-A51E-E1FCDBFDFE36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D124BB-ADA2-4A36-A51E-E1FCDBFDFE36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D124BB-ADA2-4A36-A51E-E1FCDBFDFE36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D124BB-ADA2-4A36-A51E-E1FCDBFDFE36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E90F8E8-59C5-4B24-8585-912BE49EF4FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E90F8E8-59C5-4B24-8585-912BE49EF4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E90F8E8-59C5-4B24-8585-912BE49EF4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E90F8E8-59C5-4B24-8585-912BE49EF4FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E4CBC91-476E-428D-AEAE-460495A83AF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E4CBC91-476E-428D-AEAE-460495A83AF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E4CBC91-476E-428D-AEAE-460495A83AF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E4CBC91-476E-428D-AEAE-460495A83AF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55882656-4039-4DEA-8F78-08D9B66E0FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55882656-4039-4DEA-8F78-08D9B66E0FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55882656-4039-4DEA-8F78-08D9B66E0FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55882656-4039-4DEA-8F78-08D9B66E0FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D1336FDA-09A0-4DD0-9A56-243777A2DBB8} = {5B4C75AC-D04D-4987-A7D6-7AC8FCC65865}
@@ -132,5 +164,13 @@ Global
 		{52B5EC5C-66B4-4D06-B2F8-D7D9D29BA35A} = {BDCA5C09-0C52-4320-906B-13EE6818950A}
 		{D74548BF-C39A-4C7B-87FC-E0AE6D13F2A4} = {BDCA5C09-0C52-4320-906B-13EE6818950A}
 		{89B17AD5-14E4-4501-BBD8-3B0395DA0D99} = {BDCA5C09-0C52-4320-906B-13EE6818950A}
+		{34EA6158-9CC0-469D-8C0D-DFE6191D4872} = {1117AD49-A4F1-4C58-A0D4-1D230D7C4523}
+		{66D124BB-ADA2-4A36-A51E-E1FCDBFDFE36} = {1117AD49-A4F1-4C58-A0D4-1D230D7C4523}
+		{1E90F8E8-59C5-4B24-8585-912BE49EF4FD} = {1117AD49-A4F1-4C58-A0D4-1D230D7C4523}
+		{5E4CBC91-476E-428D-AEAE-460495A83AF7} = {1117AD49-A4F1-4C58-A0D4-1D230D7C4523}
+		{55882656-4039-4DEA-8F78-08D9B66E0FFD} = {1117AD49-A4F1-4C58-A0D4-1D230D7C4523}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3835A77B-D505-4892-94B9-E8FEB115A192}
 	EndGlobalSection
 EndGlobal

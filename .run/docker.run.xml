@@ -1,29 +1,32 @@
 ﻿<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="docker" type="docker-deploy" factoryName="docker-compose.yml" activateToolWindowBeforeRun="false" server-name="Docker">
-    <deployment type="docker-compose.yml">
-      <settings>
-        <option name="envFilePath" value="" />
-        <option name="secondarySourceFiles">
-          <list>
-            <option value="docker-compose.dev.yaml" />
-          </list>
-        </option>
-        <option name="services">
-          <list>
-            <option value="person" />
-            <option value="auth" />
-            <option value="proxy" />
-            <option value="queue" />
-            <option value="auth-storage" />
-            <option value="person-storage" />
-            <option value="articles-storage" />
-            <option value="articles" />
-          </list>
-        </option>
-        <option name="sourceFilePath" value="docker-compose.base.yaml" />
-        <option name="upNoRecreate" value="true" />
-      </settings>
-    </deployment>
-    <method v="2" />
-  </configuration>
+    <configuration default="false" name="docker" type="docker-deploy"
+                   factoryName="docker-compose.yml" activateToolWindowBeforeRun="false"
+                   server-name="Docker">
+        <deployment type="docker-compose.yml">
+            <settings>
+                <option name="envFilePath" value=""/>
+                <option name="secondarySourceFiles">
+                    <list>
+                        <option value="docker-compose.dev.yaml"/>
+                        <option value="docker-compose.local.yaml"/>
+                    </list>
+                </option>
+                <option name="services">
+                    <list>
+                        <option value="person"/>
+                        <option value="auth"/>
+                        <option value="proxy"/>
+                        <option value="queue"/>
+                        <option value="auth-storage"/>
+                        <option value="person-storage"/>
+                        <option value="articles-storage"/>
+                        <option value="articles"/>
+                    </list>
+                </option>
+                <option name="sourceFilePath" value="docker-compose.base.yaml"/>
+                <option name="upNoRecreate" value="true"/>
+            </settings>
+        </deployment>
+        <method v="2"/>
+    </configuration>
 </component>

@@ -76,6 +76,7 @@ services:
     depends_on:
       - auth
       - person
+      - articles
     ports:
       - "80:80"
     command: nginx -g 'daemon off;'
@@ -90,4 +91,4 @@ services:
     volumes:
       - ./conf/queue/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
     ports:
-      - "50071:15671"
+      - "15672:15672"
