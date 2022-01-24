@@ -1,0 +1,94 @@
+version: '3.4'
+services:
+  #articles-microservice
+  articles:
+    ports:
+      - "3070:80"
+    env_file:
+      - ./conf/articles/web-dev.env
+    volumes:
+      - ./conf/articles/appsettings.json:/app/appsettings.json
+      - ./conf/articles/appsettings.Development.json:/app/appsettings.Development.json
+
+  #articles-storage
+  # my_username:my_password
+  articles-storage:
+    ports:
+      - "3071:5432"
+    env_file:
+      - ./conf/articles-storage/db-dev.env
+    volumes:
+      - ./volumes/articles-storage/postgres/logs:/pg_log
+      - ./volumes/articles-storage/postgres/data:/pg_data
+    entrypoint:
+      "docker-entrypoint.sh -c logging_collector=true -c log_directory=/pg_log -c log_rotation_age=60 -c log_min_duration_statement=250"
+  
+  
+  #person-microservice
+  person:
+    volumes:
+      - ./conf/person/appsettings.json:/app/appsettings.json
+      - ./conf/person/appsettings.Development.json:/app/appsettings.Development.json
+    ports:
+      - "3050:80"
+    env_file:
+      - ./conf/person/dev.env
+
+  #person-storage
+  # neo4j:my_password
+  person-storage:
+    ports:
+      - "3051:7474"
+      - "3052:7687"
+    volumes:
+      - ./volumes/person-storage/neo4j/data/:/data/
+      - ./volumes/person-storage/neo4j/logs/:/logs/
+    env_file:
+      - ./conf/person-storage/dev.env
+
+  #auth-microservice
+  auth:
+    volumes:
+      - ./conf/auth/appsettings.json:/app/appsettings.json
+      - ./conf/auth/appsettings.Development.json:/app/appsettings.Development.json
+    ports:
+      - "3060:80"
+    env_file:
+      - ./conf/person/dev.env
+
+  #auth-storage
+  # postgres
+  # login my_username:my_password
+  auth-storage:
+    ports:
+      - "3061:27017"
+    env_file:
+      - ./conf/auth-storage/dev.env
+    volumes:
+      - ./volumes/auth-storage/mongo/data/:/data/db
+      - ./volumes/auth-storage/mongo/logs/:/var/log/mongodb/
+
+  #proxy
+  # nginx
+  proxy:
+    volumes:
+      - ./conf/proxy/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - auth
+      - person
+      - articles
+    ports:
+      - "80:80"
+    command: nginx -g 'daemon off;'
+
+  #queue
+  # rabbitmq
+  # login myUser:myPassword
+  queue:
+    hostname: "queue"
+    labels:
+      NAME: "queue"
+    volumes:
+      - ./conf/queue/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+    ports:
+      - "15672:15672"

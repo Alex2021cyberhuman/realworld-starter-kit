@@ -420,3 +420,9 @@ FodyWeavers.xsd
 # JetBrains Rider
 .idea/
 *.sln.iml
+/volumes/auth-storage/mongo/data
+/volumes/auth-storage/mongo/logs
+/volumes/person-storage/neo4j/data
+/volumes/person-storage/neo4j/logs
+/volumes/articles-storage/postgres/data
+/volumes/articles-storage/postgres/logs

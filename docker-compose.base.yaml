@@ -1,0 +1,39 @@
+version: '3.4'
+services:
+  #person-microservice
+  articles:
+    image: ${DOCKER_REGISTRY-}articles:prebuild
+    build:
+      context: ./src/articles-microservice/
+      dockerfile: ./Dockerfile
+  
+  articles-storage:
+    image: postgres:latest
+  
+  #person-microservice
+  person:
+    image: ${DOCKER_REGISTRY-}person:prebuild
+    build:
+      context: ./src/person-microservice/
+      dockerfile: ./Dockerfile
+
+  person-storage:
+    image: neo4j:latest
+
+  #auth-microservice
+  auth:
+    image: ${DOCKER_REGISTRY-}auth:prebuild
+    build:
+      context: ./src/auth-microservice/
+      dockerfile: ./Dockerfile
+
+  auth-storage:
+    image: mongo:latest
+
+  #proxy
+  proxy:
+    image: nginx:alpine
+  #
+  #  #queue
+  queue:
+    image: rabbitmq:management
