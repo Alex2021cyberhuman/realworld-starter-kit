@@ -13,3 +13,6 @@
 [submodule "src/likes-microservice"]
 	path = src/likes-microservice
 	url = https://github.com/alex2021cyberhuman-team/likes-microservice.git
+[submodule "src/comments-microservice"]
+	path = src/comments-microservice
+	url = https://github.com/alex2021cyberhuman-team/comments-microservice

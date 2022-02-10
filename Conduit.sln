@@ -43,15 +43,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Articles.Presentati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Conduit.Likes", "Conduit.Likes", "{1117AD49-A4F1-4C58-A0D4-1D230D7C4523}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Likes.BusinessLogic", "src\likes-microservice\Conduit.Likes.BusinessLogic\Conduit.Likes.BusinessLogic.csproj", "{34EA6158-9CC0-469D-8C0D-DFE6191D4872}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Likes.BusinessLogic", "src\likes-microservice\Conduit.Likes.BusinessLogic\Conduit.Likes.BusinessLogic.csproj", "{34EA6158-9CC0-469D-8C0D-DFE6191D4872}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Likes.DataAccess", "src\likes-microservice\Conduit.Likes.DataAccess\Conduit.Likes.DataAccess.csproj", "{66D124BB-ADA2-4A36-A51E-E1FCDBFDFE36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Likes.DataAccess", "src\likes-microservice\Conduit.Likes.DataAccess\Conduit.Likes.DataAccess.csproj", "{66D124BB-ADA2-4A36-A51E-E1FCDBFDFE36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Likes.Domain", "src\likes-microservice\Conduit.Likes.Domain\Conduit.Likes.Domain.csproj", "{1E90F8E8-59C5-4B24-8585-912BE49EF4FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Likes.Domain", "src\likes-microservice\Conduit.Likes.Domain\Conduit.Likes.Domain.csproj", "{1E90F8E8-59C5-4B24-8585-912BE49EF4FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Likes.WebApi", "src\likes-microservice\Conduit.Likes.WebApi\Conduit.Likes.WebApi.csproj", "{5E4CBC91-476E-428D-AEAE-460495A83AF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Likes.WebApi", "src\likes-microservice\Conduit.Likes.WebApi\Conduit.Likes.WebApi.csproj", "{5E4CBC91-476E-428D-AEAE-460495A83AF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Shared", "src\likes-microservice\shared-core\Conduit.Shared\Conduit.Shared.csproj", "{55882656-4039-4DEA-8F78-08D9B66E0FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Shared", "src\likes-microservice\shared-core\Conduit.Shared\Conduit.Shared.csproj", "{55882656-4039-4DEA-8F78-08D9B66E0FFD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Conduit.Comments", "Conduit.Comments", "{D12667DA-29C3-417C-BB2C-A4E8E5BF2840}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Comments.WebApi", "src\comments-microservice\Conduit.Comments.WebApi\Conduit.Comments.WebApi.csproj", "{64DEA011-53B7-41D0-8D1F-EE5123CE71D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Comments.Domain", "src\comments-microservice\Conduit.Comments.Domain\Conduit.Comments.Domain.csproj", "{612D4942-B907-402A-B094-7CE11D7967FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,6 +149,14 @@ Global
 		{55882656-4039-4DEA-8F78-08D9B66E0FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55882656-4039-4DEA-8F78-08D9B66E0FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55882656-4039-4DEA-8F78-08D9B66E0FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64DEA011-53B7-41D0-8D1F-EE5123CE71D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64DEA011-53B7-41D0-8D1F-EE5123CE71D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64DEA011-53B7-41D0-8D1F-EE5123CE71D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64DEA011-53B7-41D0-8D1F-EE5123CE71D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{612D4942-B907-402A-B094-7CE11D7967FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{612D4942-B907-402A-B094-7CE11D7967FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{612D4942-B907-402A-B094-7CE11D7967FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{612D4942-B907-402A-B094-7CE11D7967FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,6 +183,8 @@ Global
 		{1E90F8E8-59C5-4B24-8585-912BE49EF4FD} = {1117AD49-A4F1-4C58-A0D4-1D230D7C4523}
 		{5E4CBC91-476E-428D-AEAE-460495A83AF7} = {1117AD49-A4F1-4C58-A0D4-1D230D7C4523}
 		{55882656-4039-4DEA-8F78-08D9B66E0FFD} = {1117AD49-A4F1-4C58-A0D4-1D230D7C4523}
+		{64DEA011-53B7-41D0-8D1F-EE5123CE71D6} = {D12667DA-29C3-417C-BB2C-A4E8E5BF2840}
+		{612D4942-B907-402A-B094-7CE11D7967FD} = {D12667DA-29C3-417C-BB2C-A4E8E5BF2840}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3835A77B-D505-4892-94B9-E8FEB115A192}
