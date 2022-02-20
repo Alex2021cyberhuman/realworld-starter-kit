@@ -426,3 +426,8 @@ FodyWeavers.xsd
 /volumes/person-storage/neo4j/logs
 /volumes/articles-storage/postgres/data
 /volumes/articles-storage/postgres/logs
+/volumes/comments/web-api/logs
+/volumes/comments-storage/postgres/data
+/volumes/comments-storage/postgres/logs
+/volumes/likes-storage/redis/data
+/volumes/likes-storage/redis/logs

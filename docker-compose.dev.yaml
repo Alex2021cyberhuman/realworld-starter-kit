@@ -1,29 +1,5 @@
 version: '3.4'
 services:
-  #articles-microservice
-  articles:
-    ports:
-      - "3070:80"
-    env_file:
-      - ./conf/articles/web-dev.env
-    volumes:
-      - ./conf/articles/appsettings.json:/app/appsettings.json
-      - ./conf/articles/appsettings.Development.json:/app/appsettings.Development.json
-
-  #articles-storage
-  # my_username:my_password
-  articles-storage:
-    ports:
-      - "3071:5432"
-    env_file:
-      - ./conf/articles-storage/db-dev.env
-    volumes:
-      - ./volumes/articles-storage/postgres/logs:/pg_log
-      - ./volumes/articles-storage/postgres/data:/pg_data
-    entrypoint:
-      "docker-entrypoint.sh -c logging_collector=true -c log_directory=/pg_log -c log_rotation_age=60 -c log_min_duration_statement=250"
-  
-  
   #person-microservice
   person:
     volumes:
@@ -68,6 +44,74 @@ services:
       - ./volumes/auth-storage/mongo/data/:/data/db
       - ./volumes/auth-storage/mongo/logs/:/var/log/mongodb/
 
+  #articles-microservice
+  articles:
+    ports:
+      - "3070:80"
+    env_file:
+      - ./conf/articles/web-dev.env
+    volumes:
+      - ./conf/articles/appsettings.json:/app/appsettings.json
+      - ./conf/articles/appsettings.Development.json:/app/appsettings.Development.json
+
+  #articles-storage
+  # my_username:my_password
+  articles-storage:
+    ports:
+      - "3071:5432"
+    env_file:
+      - ./conf/articles-storage/db-dev.env
+    volumes:
+      - ./volumes/articles-storage/postgres/logs:/pg_log
+      - ./volumes/articles-storage/postgres/data:/pg_data
+    entrypoint:
+      "docker-entrypoint.sh -c logging_collector=true -c log_directory=/pg_log -c log_rotation_age=60 -c log_min_duration_statement=250"
+
+  #likes-microservice
+  likes:
+    volumes:
+      - ./conf/likes/appsettings.json:/app/appsettings.json
+    ports:
+      - "3080:80"
+    env_file:
+      - ./conf/likes/web-dev.env
+  
+  #likes-storage
+  # redis
+  # password: my_password 
+  likes-storage:
+    volumes:
+      - ./volumes/likes-storage/redis/data/:/data/
+      - ./volumes/likes-storage/redis/logs/:/var/log/
+    command: bash -c "redis-server --appendonly yes --save 60 1 --requirepass my_password"
+    env_file:
+      - ./conf/likes-storage/db-dev.env
+    ports:
+      - "3081:6379"
+
+  #comments-microservice
+  comments:
+    ports:
+      - "3090:80"
+    env_file:
+      - ./conf/comments/web-dev.env
+    volumes:
+      - ./conf/comments/appsettings.json:/app/appsettings.json
+      - ./volumes/comments/web-api/logs/:/logs/
+
+  #comments-storage
+  # my_username:my_password
+  comments-storage:
+    ports:
+      - "3091:5432"
+    env_file:
+      - ./conf/comments-storage/db-dev.env
+    volumes:
+      - ./volumes/comments-storage/postgres/logs:/pg_log
+      - ./volumes/comments-storage/postgres/data:/pg_data
+    entrypoint:
+      "docker-entrypoint.sh -c logging_collector=true -c log_directory=/pg_log -c log_rotation_age=60 -c log_min_duration_statement=250"
+
   #proxy
   # nginx
   proxy:
@@ -77,6 +121,8 @@ services:
       - auth
       - person
       - articles
+      - likes
+      - comments
     ports:
       - "80:80"
     command: nginx -g 'daemon off;'

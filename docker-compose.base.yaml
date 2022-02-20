@@ -30,6 +30,26 @@ services:
   auth-storage:
     image: mongo:latest
 
+  #likes-microservice
+  likes:
+    image: ${DOCKER_REGISTRY-}likes:prebuild
+    build:
+      context: ./src/likes-microservice/
+      dockerfile: ./Dockerfile
+
+  likes-storage:
+    image: redis:7.0-rc
+    
+  #comments-microservice
+  comments:
+    image: ${DOCKER_REGISTRY-}comments:prebuild
+    build:
+      context: ./src/comments-microservice/
+      dockerfile: ./Dockerfile
+
+  comments-storage:
+    image: postgres:latest
+
   #proxy
   proxy:
     image: nginx:alpine
