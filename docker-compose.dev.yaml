@@ -136,5 +136,7 @@ services:
       NAME: "queue"
     volumes:
       - ./conf/queue/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ./volumes/queue/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./volumes/queue/rabbitmq/log/:/var/log/rabbitmq/
     ports:
       - "15672:15672"
