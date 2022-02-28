@@ -16,3 +16,7 @@
 [submodule "src/comments-microservice"]
 	path = src/comments-microservice
 	url = https://github.com/alex2021cyberhuman-team/comments-microservice
+[submodule "src/public-frontend"]
+	path = src/public-frontend
+	url = https://github.com/alex2021cyberhuman-team/public-frontend.git
+	branch = develop
