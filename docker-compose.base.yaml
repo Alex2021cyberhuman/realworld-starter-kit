@@ -39,7 +39,7 @@ services:
 
   likes-storage:
     image: redis:7.0-rc
-    
+  
   #comments-microservice
   comments:
     image: ${DOCKER_REGISTRY-}comments:prebuild
