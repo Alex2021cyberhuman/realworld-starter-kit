@@ -20,3 +20,6 @@
 	path = src/public-frontend
 	url = https://github.com/alex2021cyberhuman-team/public-frontend.git
 	branch = develop
+[submodule "src/image-microservice"]
+	path = src/image-microservice
+	url = https://github.com/alex2021cyberhuman-team/image-microservice.git
