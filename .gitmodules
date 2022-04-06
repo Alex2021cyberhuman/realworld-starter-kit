@@ -22,4 +22,5 @@
 	branch = develop
 [submodule "src/image-microservice"]
 	path = src/image-microservice
-	url = https://github.com/alex2021cyberhuman-team/image-microservice
+	url = https://github.com/alex2021cyberhuman-team/image-microservice.git
+	branch = develop
