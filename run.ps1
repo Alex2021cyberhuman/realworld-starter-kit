@@ -1,76 +1,105 @@
 ﻿param(
     [Boolean]$JustRestart = $false,
     [String[]]$Services = @(),
-    [Boolean]$OnlyDotnetServices = $false,
+    [Boolean]$OnlyPrebuildableServices = $false,
     [Boolean]$AllServices = $false,
-    [Boolean]$RestartProxy = $true
+    [Boolean]$RestartProxy = $true,
+    [Boolean]$Recreate = $false
 )
 
-if ($OnlyDotnetServices)
+if ($OnlyPrebuildableServices)
 {
-    $Services = @(        
-        'articles',
-        'person',
-        'auth',
-        'likes',
-        'comments'
+    $Services = @(
+    'articles',
+    'person',
+    'auth',
+    'likes',
+    'comments'
     )
 }
 
 if ($AllServices)
 {
-    $Services = @(        
-        'articles',
-        'articles-storage',
-        'person',
-        'person-storage',
-        'auth',
-        'auth-storage',
-        'likes',
-        'likes-storage',
-        'comments',
-        'comments-storage',
-        'queue'
+    $Services = @(
+    'articles',
+    'articles-storage',
+    'person',
+    'person-storage',
+    'auth',
+    'auth-storage',
+    'likes',
+    'likes-storage',
+    'comments',
+    'comments-storage',
+    'queue'
     )
+}
+
+if ($RestartProxy -And ! $Services.Contains('proxy'))
+{
+    $Services += 'proxy'
 }
 
 function RestartDocker
 {
-    param([String] $Service)
-    docker compose -f ".\docker-compose.base.yaml" -f ".\docker-compose.dev.yaml" -f ".\docker-compose.local.yaml" up --force-recreate --no-deps -d $Service
+    param([String[]] $RestartableServices)
+    $files = $( "-f `".\docker-compose.base.yaml`" -f `".\docker-compose.dev.yaml`" -f `".\docker-compose.local.yaml`"" )
+    $flags = $( "-d --no-deps" )
+    if ($Recreate)
+    {
+        $flags += " --force-recreate"
+    }
+    $serviceString = $( $RestartableServices | Join-String -Separator ' ' )
+    $command = "docker compose $( $files ) up $( $flags ) $( $serviceString )"
+    Invoke-Expression $command
 }
 
-if ($Services.Contains('articles') -And ! $JustRestart)
+
+
+function BuildServices
 {
-    ./src/articles-microservice/prebuild.Dockerfile.ps1 -PathToRepository ./src/articles-microservice/    
+    param([String[]] $PrebuildableServices)
+    $jobs = @()
+    foreach ($service in [Linq.Enumerable]::Distinct($PrebuildableServices))
+    {
+        $args = @($service)
+        $j = Start-Job -Args $args -ScriptBlock {
+            $pathToRepository = switch ($args)
+            {
+                'articles' {
+                    './src/articles-microservice'
+                }
+                'person' {
+                    './src/person-microservice'
+                }
+                'auth' {
+                    './src/auth-microservice'
+                }
+                'likes' {
+                    './src/likes-microservice'
+                }
+                'comments' {
+                    './src/comments-microservice'
+                }
+                default {
+                    $false
+                }
+            }
+            if ($pathToRepository -ne $false)
+            {
+                $command = "$( $pathToRepository )/prebuild.Dockerfile.ps1 -PathToRepository `"$( $pathToRepository )/`""
+                Invoke-Expression $command
+            }
+        }
+        $jobs += $j
+    }
+    Wait-Job $jobs
+    Receive-Job $jobs
 }
 
-if ($Services.Contains('person') -And ! $JustRestart)
+if (!$JustRestart)
 {
-    ./src/person-microservice/prebuild.Dockerfile.ps1 -PathToRepository ./src/person-microservice/    
+    BuildServices -PrebuildableServices $Services
 }
 
-if ($Services.Contains('auth') -And ! $JustRestart)
-{
-    ./src/auth-microservice/prebuild.Dockerfile.ps1 -PathToRepository ./src/auth-microservice/    
-}
-
-if ($Services.Contains('likes') -And ! $JustRestart)
-{
-    ./src/likes-microservice/prebuild.Dockerfile.ps1 -PathToRepository ./src/likes-microservice/    
-}
-
-if ($Services.Contains('comments') -And ! $JustRestart)
-{
-    ./src/comments-microservice/prebuild.Dockerfile.ps1 -PathToRepository ./src/comments-microservice/    
-}
-
-foreach($service in $Services)
-{
-    RestartDocker -Service $service
-}
-
-if ($RestartProxy)
-{
-    RestartDocker -Service 'proxy'
-}
+RestartDocker -RestartableServices $Services
