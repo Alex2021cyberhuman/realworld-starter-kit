@@ -5,7 +5,6 @@ services:
     image: ${DOCKER_REGISTRY-}articles:prebuild
     build:
       context: ./src/articles-microservice/
-      dockerfile: ./Dockerfile
   
   articles-storage:
     image: postgres:latest
@@ -15,7 +14,6 @@ services:
     image: ${DOCKER_REGISTRY-}person:prebuild
     build:
       context: ./src/person-microservice/
-      dockerfile: ./Dockerfile
 
   person-storage:
     image: neo4j:latest
@@ -25,7 +23,6 @@ services:
     image: ${DOCKER_REGISTRY-}auth:prebuild
     build:
       context: ./src/auth-microservice/
-      dockerfile: ./Dockerfile
 
   auth-storage:
     image: mongo:latest
@@ -35,7 +32,6 @@ services:
     image: ${DOCKER_REGISTRY-}likes:prebuild
     build:
       context: ./src/likes-microservice/
-      dockerfile: ./Dockerfile
 
   likes-storage:
     image: redis:7.0-rc
@@ -45,9 +41,17 @@ services:
     image: ${DOCKER_REGISTRY-}comments:prebuild
     build:
       context: ./src/comments-microservice/
-      dockerfile: ./Dockerfile
 
   comments-storage:
+    image: postgres:latest
+
+  #image-microservice
+  image:
+    image: ${DOCKER_REGISTRY-}image:prebuild
+    build:
+      context: ./src/image-microservice/
+
+  image-storage:
     image: postgres:latest
 
   #proxy

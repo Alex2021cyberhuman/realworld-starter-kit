@@ -14,6 +14,10 @@ $volumes = @(
 "./volumes/likes-storage/redis/logs"
 "./volumes/queue/rabbitmq/data/"
 "./volumes/queue/rabbitmq/log/"
+"./volumes/image-storage/postgres/"
+"./volumes/image-storage/logs/"
+"./volumes/image/web-api/logs/"
+"./volumes/image/web-api/image-data/"
 )
 Remove-Item $volumes -Force -Recurse
 New-Item $volumes -ItemType Directory

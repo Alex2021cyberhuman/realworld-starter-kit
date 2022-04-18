@@ -112,6 +112,30 @@ services:
     entrypoint:
       "docker-entrypoint.sh -c logging_collector=true -c log_directory=/pg_log -c log_rotation_age=60 -c log_min_duration_statement=250"
 
+  #image-microservice
+  image:
+    ports:
+      - "4000:80"
+    env_file:
+      - ./conf/image/web-dev.env
+    volumes:
+      - ./conf/image/appsettings.json:/app/appsettings.json
+      - ./volumes/image/web-api/logs/:/logs/
+      - ./volumes/image/web-api/image-data/:/image-data/
+
+  #image-storage
+  # my_username:my_password
+  image-storage:
+    ports:
+      - "4001:5432"
+    env_file:
+      - ./conf/image-storage/db-dev.env
+    volumes:
+      - ./volumes/image-storage/postgres/logs:/pg_log
+      - ./volumes/image-storage/postgres/data:/pg_data
+    entrypoint:
+      "docker-entrypoint.sh -c logging_collector=true -c log_directory=/pg_log -c log_rotation_age=60 -c log_min_duration_statement=250"
+
   #proxy
   # nginx
   proxy:

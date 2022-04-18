@@ -14,7 +14,8 @@ if ($OnlyPrebuildableServices)
     'person',
     'auth',
     'likes',
-    'comments'
+    'comments',
+    'image'
     )
 }
 
@@ -31,6 +32,8 @@ if ($AllServices)
     'likes-storage',
     'comments',
     'comments-storage',
+    'image',
+    'image-storage',
     'queue'
     )
 }
@@ -80,6 +83,9 @@ function BuildServices
                 }
                 'comments' {
                     './src/comments-microservice'
+                }
+                'image' {
+                    './src/image-microservice'
                 }
                 default {
                     $false
