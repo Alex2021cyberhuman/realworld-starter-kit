@@ -5,17 +5,17 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Conduit.Auth", "Conduit.Auth", "{5B4C75AC-D04D-4987-A7D6-7AC8FCC65865}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.Infrastructure", "src\auth-microservice\Conduit.Auth.Infrastructure\Conduit.Auth.Infrastructure.csproj", "{D1336FDA-09A0-4DD0-9A56-243777A2DBB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.InfrastructureLayer", "src\auth-microservice\Conduit.Auth.InfrastructureLayer\Conduit.Auth.InfrastructureLayer.csproj", "{D1336FDA-09A0-4DD0-9A56-243777A2DBB8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.ApplicationLayer", "src\auth-microservice\Conduit.Auth.ApplicationLayer\Conduit.Auth.ApplicationLayer.csproj", "{BEAADFF2-26CE-4482-8477-CD4D585B1815}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.Domain", "src\auth-microservice\Conduit.Auth.Domain\Conduit.Auth.Domain.csproj", "{61208A8A-CA56-48FA-92CC-8ABC32D22B02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.DomainLayer", "src\auth-microservice\Conduit.Auth.DomainLayer\Conduit.Auth.DomainLayer.csproj", "{61208A8A-CA56-48FA-92CC-8ABC32D22B02}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.Infrastructure.MongoDB", "src\auth-microservice\Conduit.Auth.Infrastructure.MongoDB\Conduit.Auth.Infrastructure.MongoDB.csproj", "{C68D4290-1AF5-4747-93D4-96F47516F035}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.InfrastructureLayer.MongoDB", "src\auth-microservice\Conduit.Auth.InfrastructureLayer.MongoDB\Conduit.Auth.InfrastructureLayer.MongoDB.csproj", "{C68D4290-1AF5-4747-93D4-96F47516F035}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.Infrastructure.JwtTokens", "src\auth-microservice\Conduit.Auth.Infrastructure.JwtTokens\Conduit.Auth.Infrastructure.JwtTokens.csproj", "{5A3EBB6F-D6EB-48C6-929D-F8B7D4B01457}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.InfrastructureLayer.JwtTokens", "src\auth-microservice\Conduit.Auth.InfrastructureLayer.JwtTokens\Conduit.Auth.InfrastructureLayer.JwtTokens.csproj", "{5A3EBB6F-D6EB-48C6-929D-F8B7D4B01457}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.WebApi", "src\auth-microservice\Conduit.Auth.WebApi\Conduit.Auth.WebApi.csproj", "{D7A8B00F-F9C8-45A3-93B2-AD13070B850C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Auth.PresentationLayer.WebApi", "src\auth-microservice\Conduit.Auth.PresentationLayer.WebApi\Conduit.Auth.PresentationLayer.WebApi.csproj", "{D7A8B00F-F9C8-45A3-93B2-AD13070B850C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conduit.Shared", "src\auth-microservice\shared-core\Conduit.Shared\Conduit.Shared.csproj", "{F01C1C82-AC5D-46A7-A494-78330131C4C8}"
 EndProject
@@ -76,6 +76,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Images.WebApi", "src\image-microservice\Conduit.Images.WebApi\Conduit.Images.WebApi.csproj", "{9D1E5F8A-2E2F-43E1-A993-3C25DDB3F77D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Shared", "src\image-microservice\shared-core\Conduit.Shared\Conduit.Shared.csproj", "{5FA8DB10-E501-43AB-9CED-E5EEAA396AA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Shared.AspNetCore", "src\auth-microservice\shared-core\Conduit.Shared.AspNetCore\Conduit.Shared.AspNetCore.csproj", "{C6F02FD7-6950-48B0-83B3-7375161F5B2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conduit.Shared.Events", "src\auth-microservice\shared-core\Conduit.Shared.Events\Conduit.Shared.Events.csproj", "{E69E00F0-87A4-4DB0-8282-EE8916FE5093}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -207,6 +211,14 @@ Global
 		{5FA8DB10-E501-43AB-9CED-E5EEAA396AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FA8DB10-E501-43AB-9CED-E5EEAA396AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FA8DB10-E501-43AB-9CED-E5EEAA396AA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F02FD7-6950-48B0-83B3-7375161F5B2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F02FD7-6950-48B0-83B3-7375161F5B2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F02FD7-6950-48B0-83B3-7375161F5B2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F02FD7-6950-48B0-83B3-7375161F5B2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E69E00F0-87A4-4DB0-8282-EE8916FE5093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E69E00F0-87A4-4DB0-8282-EE8916FE5093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E69E00F0-87A4-4DB0-8282-EE8916FE5093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E69E00F0-87A4-4DB0-8282-EE8916FE5093}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -243,6 +255,8 @@ Global
 		{BE9EDB05-193C-4048-8E3B-7EC2DE5BFEF5} = {50B58459-68CC-4A0A-BFF0-77B8321DA885}
 		{9D1E5F8A-2E2F-43E1-A993-3C25DDB3F77D} = {50B58459-68CC-4A0A-BFF0-77B8321DA885}
 		{5FA8DB10-E501-43AB-9CED-E5EEAA396AA0} = {50B58459-68CC-4A0A-BFF0-77B8321DA885}
+		{C6F02FD7-6950-48B0-83B3-7375161F5B2B} = {5B4C75AC-D04D-4987-A7D6-7AC8FCC65865}
+		{E69E00F0-87A4-4DB0-8282-EE8916FE5093} = {5B4C75AC-D04D-4987-A7D6-7AC8FCC65865}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3835A77B-D505-4892-94B9-E8FEB115A192}
