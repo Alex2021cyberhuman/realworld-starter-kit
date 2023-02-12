@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <EnablePreviewFeatures>True</EnablePreviewFeatures>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Conduit.Auth.DomainLayer\Conduit.Auth.DomainLayer.csproj" />
+    <ProjectReference Include="..\shared-core\Conduit.Shared.Events\Conduit.Shared.Events.csproj" />
+    <ProjectReference Include="..\shared-core\Conduit.Shared\Conduit.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
