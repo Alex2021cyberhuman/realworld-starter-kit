@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\shared-core\Conduit.Shared\Conduit.Shared.csproj"/>
+    <ProjectReference Include="..\..\shared-core\Conduit.Shared\Conduit.Shared.csproj"/>
+    <ProjectReference Include="..\..\shared-core\Conduit.Shared.Events\Conduit.Shared.Events.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

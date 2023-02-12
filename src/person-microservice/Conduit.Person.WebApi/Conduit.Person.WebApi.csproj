@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Conduit.Person.DataAccessLayer\Conduit.Person.DataAccessLayer.csproj"/>
-    <ProjectReference Include="..\shared-core\Conduit.Shared\Conduit.Shared.csproj"/>
+    <ProjectReference Include="..\..\shared-core\Conduit.Shared\Conduit.Shared.csproj"/>
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
 using Conduit.Likes.Domain.Articles;
+using Conduit.Shared.Events.Models.Articles;
 using StackExchange.Redis;
 
 namespace Conduit.Likes.DataAccess.Articles;

@@ -1,5 +1,5 @@
 using Conduit.Comments.Domain.Authors;
-using Conduit.Shared.Events.Models.Users.Update;
+using Conduit.Shared.Events.Models.Users;
 using Conduit.Shared.Events.Services;
 using Microsoft.Extensions.Logging;
 

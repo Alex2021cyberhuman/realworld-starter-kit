@@ -1,5 +1,5 @@
 using Conduit.Images.Domain.Articles;
-using Conduit.Shared.Events.Models.Articles.CreateArticle;
+using Conduit.Shared.Events.Models.Articles;
 using Conduit.Shared.Events.Services;
 using Microsoft.Extensions.Logging;
 namespace Conduit.Images.BusinessLogic.Articles;

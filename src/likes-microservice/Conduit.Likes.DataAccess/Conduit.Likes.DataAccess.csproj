@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Conduit.Likes.Domain\Conduit.Likes.Domain.csproj"/>
-    <ProjectReference Include="..\shared-core\Conduit.Shared\Conduit.Shared.csproj"/>
+    <ProjectReference Include="..\..\shared-core\Conduit.Shared\Conduit.Shared.csproj"/>
   </ItemGroup>
 
   <ItemGroup>

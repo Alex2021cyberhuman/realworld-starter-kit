@@ -16,7 +16,7 @@
     <ProjectReference Include="..\Conduit.Likes.BusinessLogic\Conduit.Likes.BusinessLogic.csproj"/>
     <ProjectReference Include="..\Conduit.Likes.Domain\Conduit.Likes.Domain.csproj"/>
     <ProjectReference Include="..\Conduit.Likes.DataAccess\Conduit.Likes.DataAccess.csproj"/>
-    <ProjectReference Include="..\shared-core\Conduit.Shared\Conduit.Shared.csproj"/>
+    <ProjectReference Include="..\..\shared-core\Conduit.Shared\Conduit.Shared.csproj"/>
   </ItemGroup>
 
   <ItemGroup>

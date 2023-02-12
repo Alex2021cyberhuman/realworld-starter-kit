@@ -1,9 +1,7 @@
 using Conduit.Images.DataAccess.Extensions;
 using Conduit.Images.Domain.Articles;
 using Conduit.Images.Domain.Images.Services.Repositories;
-using Conduit.Shared.Events.Models.Articles.CreateArticle;
-using Conduit.Shared.Events.Models.Articles.DeleteArticle;
-using Conduit.Shared.Events.Models.Articles.UpdateArticle;
+using Conduit.Shared.Events.Models.Articles;
 using Dapper;
 using Npgsql;
 

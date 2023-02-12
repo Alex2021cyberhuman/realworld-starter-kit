@@ -8,6 +8,8 @@ using Conduit.Likes.Domain.Favorites;
 using Conduit.Likes.Domain.Favorites.FavoriteArticle;
 using Conduit.Likes.Domain.Favorites.UnfavoriteArticle;
 using Conduit.Likes.WebApi;
+using Conduit.Shared.Events.Models.Articles;
+using Conduit.Shared.Events.Models.Likes;
 using Conduit.Shared.Events.Services.RabbitMQ;
 using Conduit.Shared.Localization;
 using Conduit.Shared.Startup;

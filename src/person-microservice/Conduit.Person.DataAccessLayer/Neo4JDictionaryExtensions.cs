@@ -1,4 +1,5 @@
 using Conduit.Person.BusinessLogic;
+using Conduit.Shared.Events.Models.Users;
 using Neo4j.Driver;
 
 namespace Conduit.Person.DataAccessLayer;

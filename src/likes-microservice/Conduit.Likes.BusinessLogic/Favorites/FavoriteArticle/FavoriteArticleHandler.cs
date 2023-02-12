@@ -2,6 +2,7 @@ using Conduit.Likes.Domain.Articles;
 using Conduit.Likes.Domain.Favorites;
 using Conduit.Likes.Domain.Favorites.FavoriteArticle;
 using Conduit.Likes.Domain.Shared;
+using Conduit.Shared.Events.Models.Likes;
 using Conduit.Shared.Events.Services;
 
 namespace Conduit.Likes.BusinessLogic.Favorites.FavoriteArticle;

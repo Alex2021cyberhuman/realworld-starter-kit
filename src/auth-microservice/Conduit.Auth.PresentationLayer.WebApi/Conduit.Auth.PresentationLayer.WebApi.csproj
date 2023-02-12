@@ -11,8 +11,8 @@
     <ProjectReference Include="..\Conduit.Auth.ApplicationLayer\Conduit.Auth.ApplicationLayer.csproj" />
     <ProjectReference Include="..\Conduit.Auth.InfrastructureLayer.MongoDB\Conduit.Auth.InfrastructureLayer.MongoDB.csproj" />
     <ProjectReference Include="..\Conduit.Auth.InfrastructureLayer.JwtTokens\Conduit.Auth.InfrastructureLayer.JwtTokens.csproj" />
-    <ProjectReference Include="..\shared-core\Conduit.Shared.AspNetCore\Conduit.Shared.AspNetCore.csproj" />
-    <ProjectReference Include="..\shared-core\Conduit.Shared\Conduit.Shared.csproj" />
+    <ProjectReference Include="..\..\shared-core\Conduit.Shared.AspNetCore\Conduit.Shared.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\shared-core\Conduit.Shared\Conduit.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

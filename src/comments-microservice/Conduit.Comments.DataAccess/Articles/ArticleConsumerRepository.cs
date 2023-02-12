@@ -1,7 +1,5 @@
 using Conduit.Comments.Domain.Articles;
-using Conduit.Shared.Events.Models.Articles.CreateArticle;
-using Conduit.Shared.Events.Models.Articles.DeleteArticle;
-using Conduit.Shared.Events.Models.Articles.UpdateArticle;
+using Conduit.Shared.Events.Models.Articles;
 using Microsoft.EntityFrameworkCore;
 
 namespace Conduit.Comments.DataAccess.Articles;

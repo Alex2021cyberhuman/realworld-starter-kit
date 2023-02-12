@@ -3,6 +3,8 @@ using Conduit.Person.BusinessLogic;
 using Conduit.Person.DataAccessLayer;
 using Conduit.Person.WebApi;
 using Conduit.Person.WebApi.Consumers;
+using Conduit.Shared.Events.Models.Profiles;
+using Conduit.Shared.Events.Models.Users;
 using Conduit.Shared.Events.Services.RabbitMQ;
 using Conduit.Shared.Localization;
 using Conduit.Shared.Startup;

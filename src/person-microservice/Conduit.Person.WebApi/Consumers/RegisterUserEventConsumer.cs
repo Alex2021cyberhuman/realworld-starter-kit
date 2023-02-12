@@ -1,4 +1,5 @@
 using Conduit.Person.BusinessLogic;
+using Conduit.Shared.Events.Models.Users;
 using Conduit.Shared.Events.Services;
 
 namespace Conduit.Person.WebApi.Consumers;

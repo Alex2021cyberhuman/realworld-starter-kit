@@ -3,7 +3,7 @@ using Conduit.Comments.Domain.Articles;
 using Conduit.Comments.Domain.Comments.Delete;
 using Conduit.Comments.Domain.Comments.Models;
 using Conduit.Comments.Domain.Comments.Repositories;
-using Conduit.Shared.Events.Models.Comments.DeleteComment;
+using Conduit.Shared.Events.Models.Comments;
 using Conduit.Shared.Events.Services;
 using Microsoft.Extensions.Logging;
 

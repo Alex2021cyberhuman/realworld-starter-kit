@@ -1,7 +1,5 @@
-using Conduit.Shared.Events.Models.Profiles.CreateFollowing;
-using Conduit.Shared.Events.Models.Profiles.RemoveFollowing;
-using Conduit.Shared.Events.Models.Users.Register;
-using Conduit.Shared.Events.Models.Users.Update;
+using Conduit.Shared.Events.Models.Profiles;
+using Conduit.Shared.Events.Models.Users;
 
 namespace Conduit.Comments.Domain.Authors;
 

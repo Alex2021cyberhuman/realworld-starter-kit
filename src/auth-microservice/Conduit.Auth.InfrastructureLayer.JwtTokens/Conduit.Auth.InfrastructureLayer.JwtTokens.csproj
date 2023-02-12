@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\shared-core\Conduit.Shared\Conduit.Shared.csproj" />
+    <ProjectReference Include="..\..\shared-core\Conduit.Shared\Conduit.Shared.csproj" />
     <ProjectReference Include="..\Conduit.Auth.DomainLayer\Conduit.Auth.DomainLayer.csproj" />
     <ProjectReference Include="..\Conduit.Auth.InfrastructureLayer\Conduit.Auth.InfrastructureLayer.csproj" />
   </ItemGroup>

@@ -1,8 +1,6 @@
 using Conduit.Comments.Domain.Authors;
-using Conduit.Shared.Events.Models.Profiles.CreateFollowing;
-using Conduit.Shared.Events.Models.Profiles.RemoveFollowing;
-using Conduit.Shared.Events.Models.Users.Register;
-using Conduit.Shared.Events.Models.Users.Update;
+using Conduit.Shared.Events.Models.Profiles;
+using Conduit.Shared.Events.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace Conduit.Comments.DataAccess.Authors;

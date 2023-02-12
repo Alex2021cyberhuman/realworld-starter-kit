@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Conduit.Images.Domain\Conduit.Images.Domain.csproj" />
-    <ProjectReference Include="..\shared-core\Conduit.Shared\Conduit.Shared.csproj" />
+    <ProjectReference Include="..\..\shared-core\Conduit.Shared\Conduit.Shared.csproj" />
   </ItemGroup>
 
 </Project>

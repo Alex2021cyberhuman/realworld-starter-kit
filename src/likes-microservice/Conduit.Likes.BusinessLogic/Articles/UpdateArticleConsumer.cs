@@ -1,4 +1,5 @@
 using Conduit.Likes.Domain.Articles;
+using Conduit.Shared.Events.Models.Articles;
 using Conduit.Shared.Events.Services;
 
 namespace Conduit.Likes.BusinessLogic.Articles;
